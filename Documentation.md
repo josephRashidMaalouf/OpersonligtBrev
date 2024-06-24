@@ -44,15 +44,15 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 ## Entities & DTOs
 
-| NAME                                   | PROPERTIES                                                                                                     |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| LoginDto                               | string username, string password                                                                               |
-| RegisterDto                            | string email, string password                                                                                  |
-| JobDto                                 | string CompanyName, string About, string JobDescription                                                        |
-| ResumeWorkItem                         | string title, int yearsOfExperience, string description                                                        |
-| ResumeEdItem                           | string school, int years, string degree, description                                                           |
-| Resume                                 | string id, string name, string aboutMe, string[] skills, string[] languages , ResumeWorkItem[], ResumeEdItem[] |
-| Letter                                 | string id, string title, string Text                                                                           |
-| User : IdentityUser                    | string Name, IdentityUserClaim[], IdentityUserLogin[], IdentityUserToken[], ApplicationUserRole[]              |
-| ApplicationRole : IdentityRole         | ApplicationUserRole[]                                                                                          |
-| ApplicationUserRole : IdentityUserRole | ApplicationRole[]                                                                                              |
+| NAME                                   | PROPERTIES                                                                                                            |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| LoginDto                               | string username, string password                                                                                      |
+| RegisterDto                            | string email, string password                                                                                         |
+| JobDto                                 | string CompanyName, string About, string JobDescription                                                               |
+| ResumeWorkItem                         | string title, int yearsOfExperience, string description                                                               |
+| ResumeEducationItem                    | string school, int years, string degree, description, string program                                                  |
+| Resume                                 | string id, string name, string aboutMe, string[] skills, string[] languages , ResumeWorkItem[], ResumeEducationItem[] |
+| Letter                                 | string id, string title, string Text                                                                                  |
+| User : IdentityUser                    | string Name, IdentityUserClaim[], IdentityUserLogin[], IdentityUserToken[], ApplicationUserRole[]                     |
+| ApplicationRole : IdentityRole         | ApplicationUserRole[]                                                                                                 |
+| ApplicationUserRole : IdentityUserRole | ApplicationRole[]                                                                                                     |
