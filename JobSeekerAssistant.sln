@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSeekerAssistant.Api", "JobSeekerAssistant.Api\JobSeekerAssistant.Api.csproj", "{B0ADEB0C-5907-488E-8D26-61C808BCE110}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{31E9828B-6183-4458-936D-8726157BAC5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSeekerAssistant.Infrastructure", "JobSeekerAssistant.Infrastructure\JobSeekerAssistant.Infrastructure.csproj", "{41D07C73-14F0-4174-8B02-DFEE6150A989}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSeekerAssistant.Application", "JobSeekerAssistant.Application\JobSeekerAssistant.Application.csproj", "{D76C2510-88CB-41F2-9317-D43912D7FAEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSeekerAssistant.Domain", "JobSeekerAssistant.Domain\JobSeekerAssistant.Domain.csproj", "{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13A754E7-9DA0-4867-AE1E-E171D8E2F946}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation.md = Documentation.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0ADEB0C-5907-488E-8D26-61C808BCE110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0ADEB0C-5907-488E-8D26-61C808BCE110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0ADEB0C-5907-488E-8D26-61C808BCE110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0ADEB0C-5907-488E-8D26-61C808BCE110}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D07C73-14F0-4174-8B02-DFEE6150A989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D07C73-14F0-4174-8B02-DFEE6150A989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D07C73-14F0-4174-8B02-DFEE6150A989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D07C73-14F0-4174-8B02-DFEE6150A989}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D76C2510-88CB-41F2-9317-D43912D7FAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76C2510-88CB-41F2-9317-D43912D7FAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76C2510-88CB-41F2-9317-D43912D7FAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76C2510-88CB-41F2-9317-D43912D7FAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B0ADEB0C-5907-488E-8D26-61C808BCE110} = {31E9828B-6183-4458-936D-8726157BAC5F}
+		{41D07C73-14F0-4174-8B02-DFEE6150A989} = {31E9828B-6183-4458-936D-8726157BAC5F}
+		{D76C2510-88CB-41F2-9317-D43912D7FAEB} = {31E9828B-6183-4458-936D-8726157BAC5F}
+		{50BFCA2A-48EE-4A2F-8CC8-F71C1E37C75B} = {31E9828B-6183-4458-936D-8726157BAC5F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FF9C637-3733-4367-9C50-B5BFD0481CE4}
+	EndGlobalSection
+EndGlobal
