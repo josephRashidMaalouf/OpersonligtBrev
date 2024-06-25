@@ -1,5 +1,8 @@
+using JobSeekerAssistant.Api.DependecyInjection;
+using JobSeekerAssistant.Application.Interfaces.Repositories;
 using JobSeekerAssistant.Domain.Entities.Identity;
 using JobSeekerAssistant.Infrastructure;
+using JobSeekerAssistant.Infrastructure.Repositories.MongoDb;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +30,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentityCore<User>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddApiEndpoints();
+
+builder.Services.AddScoped<IResumeRepository<string>, ResumeRepository>(provider =>
+    new ResumeRepository("Resumes", mongoConnectionString!));
+builder.Services.AddScoped<ILetterRepository<string>, LetterRepository>(provider =>
+    new LetterRepository("Letters", mongoConnectionString!));
+
+builder.Services.InjectServices();
 
 var app = builder.Build();
 
