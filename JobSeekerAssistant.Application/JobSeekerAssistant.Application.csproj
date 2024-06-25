@@ -10,4 +10,8 @@
     <ProjectReference Include="..\JobSeekerAssistant.Domain\JobSeekerAssistant.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Services\" />
+  </ItemGroup>
+
 </Project>

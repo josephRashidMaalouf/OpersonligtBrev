@@ -1,6 +1,6 @@
 ﻿using JobSeekerAssistant.Domain.Interfaces;
 
-namespace JobSeekerAssistant.Application.Interfaces;
+namespace JobSeekerAssistant.Application.Interfaces.Repositories;
 
 public interface IRepository<TEntity, TId> where TEntity : IEntity<TId>
 {

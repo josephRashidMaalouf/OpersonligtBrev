@@ -12,12 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
-builder.Services.AddAuthorizationBuilder();
-
 var sqlConnectionString = builder.Configuration["Database:Local:Sql"];
 var mongoConnectionString = builder.Configuration["Database:Local:Mongo"];
 var gptKey = builder.Configuration["GptKey"];
+
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+builder.Services.AddAuthorizationBuilder();
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
@@ -38,6 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

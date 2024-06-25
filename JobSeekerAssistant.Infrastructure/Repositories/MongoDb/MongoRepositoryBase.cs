@@ -1,4 +1,4 @@
-﻿using JobSeekerAssistant.Application.Interfaces;
+﻿using JobSeekerAssistant.Application.Interfaces.Repositories;
 using JobSeekerAssistant.Domain.Interfaces;
 using MongoDB.Driver;
 
