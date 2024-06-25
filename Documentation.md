@@ -25,13 +25,13 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 ### RESUME
 
-| PATH                        | METHOD | REQUEST                             | RESPONSE | RESPONSE CODE |
-| --------------------------- | ------ | ----------------------------------- | -------- | ------------- |
-| /resume/all/{userId}        | GET    | string userId                       | Resume[] | 200, 404, 401 |
-| /resume/{resumeIdId}        | GET    | string resumeId                     | Resume   | 200, 404, 401 |
-| /resume/{userId}            | POST   | string userId, Resume               |          | 200, 404, 401 |
-| /resume/{userId}/{resumeId} | PUT    | string userId, int resumeId, Resume |          | 200, 404, 401 |
-| /resume/{userId}/{resumeId} | DELETE | string userId, int resumeId, Resume |          | 200, 404, 401 |
+| PATH                 | METHOD | REQUEST                 | RESPONSE | RESPONSE CODE |
+| -------------------- | ------ | ----------------------- | -------- | ------------- |
+| /resume/all/{userId} | GET    | string userId           | Resume[] | 200, 404, 401 |
+| /resume/{resumeId}   | GET    | string resumeId         | Resume   | 200, 404, 401 |
+| /resume/{userId}     | POST   | string userId, Resume   |          | 200, 404, 401 |
+| /resume/{resumeId}   | PUT    | string resumeId, Resume |          | 200, 404, 401 |
+| /resume/{resumeId}   | DELETE | string resumeId, Resume |          | 200, 404, 401 |
 
 ### APPLICATION LETTER
 
