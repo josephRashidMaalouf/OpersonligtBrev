@@ -1,5 +1,6 @@
 ﻿using JobSeekerAssistant.Application.Interfaces.Repositories;
 using JobSeekerAssistant.Application.Interfaces.Services;
+using JobSeekerAssistant.Domain.Dtos;
 using JobSeekerAssistant.Domain.Entities;
 
 namespace JobSeekerAssistant.Application.Services;
@@ -12,6 +13,8 @@ public class LetterService(ILetterRepository<string> letterRepository) : ILetter
         var letters = await _letterRepository.GetAllByUserIdAsync(userId);
         return letters;
     }
+
+ 
 
     public async Task<Letter> GetByIdAsync(string id)
     {
