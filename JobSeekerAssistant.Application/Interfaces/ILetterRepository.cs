@@ -4,7 +4,7 @@ namespace JobSeekerAssistant.Application.Interfaces;
 
 public interface ILetterRepository<TUserId> : IRepository<Letter, string>
 {
-    Task<IEnumerable<Resume>> GetAllByUserIdAsync(TUserId userId);
+    Task<IEnumerable<Letter>> GetAllByUserIdAsync(TUserId userId);
 
     
 }
