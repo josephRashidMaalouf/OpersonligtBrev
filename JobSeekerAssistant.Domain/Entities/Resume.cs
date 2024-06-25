@@ -1,7 +1,12 @@
-﻿namespace JobSeekerAssistant.Domain.Entities;
+﻿using JobSeekerAssistant.Domain.Interfaces;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
-public class Resume
+namespace JobSeekerAssistant.Domain.Entities;
+
+public class Resume : IEntity<string>
 {
+    [BsonId, BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; }
     public string UserId { get; set; }
     public string Name { get; set; }
