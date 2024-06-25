@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace JobSeekerAssistant.Infrastructure.Repositories.MongoDb;
 
-public class MongoRepositoryBase<TEntity, TId>(string collectionName, string connectionString) : IRepository<TEntity, TId> where TEntity : IEntity<TId>
+public abstract class MongoRepositoryBase<TEntity, TId>(string collectionName, string connectionString) : IRepository<TEntity, TId> where TEntity : IEntity<TId>
 {
     protected const string DataBaseName = "JobSeekerAssistantDb";
 

@@ -5,6 +5,6 @@ namespace JobSeekerAssistant.Application.Interfaces;
 
 public interface IResumeRepository<TUserId> : IRepository<Resume, string>
 {
-    Task<Resume> GetAllByUserIdAsync(TUserId userId);
+    Task<IEnumerable<Resume>> GetAllByUserIdAsync(TUserId userId);
 
 }
