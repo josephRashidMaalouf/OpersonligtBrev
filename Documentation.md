@@ -27,7 +27,8 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 | PATH                        | METHOD | REQUEST                             | RESPONSE | RESPONSE CODE |
 | --------------------------- | ------ | ----------------------------------- | -------- | ------------- |
-| /resume/{userId}            | GET    | string userId                       | Resume   | 200, 404, 401 |
+| /resume/all/{userId}        | GET    | string userId                       | Resume[] | 200, 404, 401 |
+| /resume/{resumeIdId}        | GET    | string resumeId                     | Resume   | 200, 404, 401 |
 | /resume/{userId}            | POST   | string userId, Resume               |          | 200, 404, 401 |
 | /resume/{userId}/{resumeId} | PUT    | string userId, int resumeId, Resume |          | 200, 404, 401 |
 | /resume/{userId}/{resumeId} | DELETE | string userId, int resumeId, Resume |          | 200, 404, 401 |
@@ -44,15 +45,15 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 ## Entities & DTOs
 
-| NAME                                   | PROPERTIES                                                                                                            |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| LoginDto                               | string username, string password                                                                                      |
-| RegisterDto                            | string email, string password                                                                                         |
-| JobDto                                 | string CompanyName, string About, string JobDescription                                                               |
-| ResumeWorkItem                         | string title, int yearsOfExperience, string description                                                               |
-| ResumeEducationItem                    | string school, int years, string degree, description, string program                                                  |
-| Resume                                 | string id, string name, string aboutMe, string[] skills, string[] languages , ResumeWorkItem[], ResumeEducationItem[] |
-| Letter                                 | string id, string title, string Text                                                                                  |
-| User : IdentityUser                    | string Name, IdentityUserClaim[], IdentityUserLogin[], IdentityUserToken[], ApplicationUserRole[]                     |
-| ApplicationRole : IdentityRole         | ApplicationUserRole[]                                                                                                 |
-| ApplicationUserRole : IdentityUserRole | ApplicationRole[]                                                                                                     |
+| NAME                                   | PROPERTIES                                                                                                                           |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| LoginDto                               | string username, string password                                                                                                     |
+| RegisterDto                            | string email, string password                                                                                                        |
+| JobDto                                 | string CompanyName, string About, string JobDescription                                                                              |
+| ResumeWorkItem                         | string title, int yearsOfExperience, string description                                                                              |
+| ResumeEducationItem                    | string school, int years, string degree, description, string program                                                                 |
+| Resume                                 | string id, string name, string aboutMe, string[] skills, string[] languages , ResumeWorkItem[], ResumeEducationItem[], string UserId |
+| Letter                                 | string id, string title, string Text, string UserId                                                                                  |
+| User : IdentityUser                    | string Name, IdentityUserClaim[], IdentityUserLogin[], IdentityUserToken[], ApplicationUserRole[],                                   |
+| ApplicationRole : IdentityRole         | ApplicationUserRole[]                                                                                                                |
+| ApplicationUserRole : IdentityUserRole | ApplicationRole[]                                                                                                                    |
