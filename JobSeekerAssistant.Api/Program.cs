@@ -7,6 +7,7 @@ using JobSeekerAssistant.Infrastructure;
 using JobSeekerAssistant.Infrastructure.Repositories.MongoDb;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,16 @@ builder.Services.AddScoped<ILetterRepository<string>, LetterRepository>(provider
     new LetterRepository("Letters", mongoConnectionString!));
 
 builder.Services.InjectServices();
+
+
+
+builder.Services.AddHttpClient("GptApi", options =>
+{
+    options.BaseAddress = new Uri("https://api.openai.com");
+}).ConfigureHttpClient(client =>
+{
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", builder.Configuration["GptKey"]);
+});
 
 
 var app = builder.Build();
