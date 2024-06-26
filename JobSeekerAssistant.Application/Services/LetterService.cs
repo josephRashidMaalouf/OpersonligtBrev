@@ -16,7 +16,7 @@ public class LetterService(ILetterRepository<string> letterRepository) : ILetter
 
  
 
-    public async Task<Letter> GetByIdAsync(string id)
+    public async Task<Letter?> GetByIdAsync(string id)
     {
         var letter = await _letterRepository.GetByIdAsync(id);
 

@@ -27,9 +27,9 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 | PATH                 | METHOD | REQUEST                 | RESPONSE | RESPONSE CODE |
 | -------------------- | ------ | ----------------------- | -------- | ------------- |
-| /resume/all/{userId} | GET    | string userId           | Resume[] | 200, 404, 401 |
+| /resume/all/{userId} | GET    | string userId           | Resume[] | 200, 401      |
 | /resume/{resumeId}   | GET    | string resumeId         | Resume   | 200, 404, 401 |
-| /resume/{userId}     | POST   | string userId, Resume   |          | 200, 404, 401 |
+| /resume              | POST   | Resume                  |          | 200, 404, 401 |
 | /resume/{resumeId}   | PUT    | string resumeId, Resume |          | 200, 404, 401 |
 | /resume/{resumeId}   | DELETE | string resumeId, Resume |          | 200, 404, 401 |
 

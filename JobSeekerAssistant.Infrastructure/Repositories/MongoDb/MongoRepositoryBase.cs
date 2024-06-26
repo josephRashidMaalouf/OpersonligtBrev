@@ -18,7 +18,7 @@ public abstract class MongoRepositoryBase<TEntity, TId>(string collectionName, s
         return db.GetCollection<T>(_collectionName);
     }
 
-    public async Task<TEntity> GetByIdAsync(TId id)
+    public async Task<TEntity?> GetByIdAsync(TId id)
     {
         var collection = ConnectToMongo<TEntity>();
 

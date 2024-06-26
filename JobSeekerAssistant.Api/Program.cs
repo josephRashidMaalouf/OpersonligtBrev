@@ -1,5 +1,7 @@
 using JobSeekerAssistant.Api.DependecyInjection;
 using JobSeekerAssistant.Application.Interfaces.Repositories;
+using JobSeekerAssistant.Application.Interfaces.Services;
+using JobSeekerAssistant.Application.Services;
 using JobSeekerAssistant.Domain.Entities.Identity;
 using JobSeekerAssistant.Infrastructure;
 using JobSeekerAssistant.Infrastructure.Repositories.MongoDb;
@@ -38,6 +40,7 @@ builder.Services.AddScoped<ILetterRepository<string>, LetterRepository>(provider
 
 builder.Services.InjectServices();
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<User>();
 
 app.UseAuthentication();
 app.UseAuthorization();
