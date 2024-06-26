@@ -33,8 +33,13 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpPost("generate/{resumeId}")]
-        public void Post(string resumeId, [FromBody] JobDto jobDto)
+        public async Task<IResult> Post(string resumeId, [FromBody] PromptRequestDto promptRequestDto )
         {
+            var resume = await _resumeService.GetByIdAsync(resumeId);
+
+            var prompt =
+                await promptService.GeneratePromptForLetterAsync(promptRequestDto.JobDto, resume,
+                    promptRequestDto.Language);
 
         }
 

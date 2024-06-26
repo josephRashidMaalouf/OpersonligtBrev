@@ -50,6 +50,9 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 | LoginDto                               | string username, string password                                                                                                     |
 | RegisterDto                            | string email, string password                                                                                                        |
 | JobDto                                 | string CompanyName, string About, string JobDescription                                                                              |
+| PromptRequestDto                       | string language, JobDto                                                                                                              |
+| GptDto                                 | string model, gptMessageDto[] Messages                                                                                               |
+| GptMessageDto                          | string role, string content                                                                                                          |
 | ResumeWorkItem                         | string CompanyName, string title, int yearsOfExperience, string description                                                          |
 | ResumeEducationItem                    | string school, int years, string degree, description, string program                                                                 |
 | Resume                                 | string id, string name, string aboutMe, string[] skills, string[] languages , ResumeWorkItem[], ResumeEducationItem[], string UserId |
