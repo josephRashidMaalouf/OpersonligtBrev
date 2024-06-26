@@ -9,6 +9,7 @@ public static class ServiceInjection
     {
         services.AddScoped<ILetterService<string>, LetterService>();
         services.AddScoped<IResumeService<string>, ResumeService>();
+        services.AddTransient<IPromptService, PromptService>();
 
         return services;
     }
