@@ -3,6 +3,7 @@ using JobSeekerAssistant.Application.Interfaces.Services;
 using JobSeekerAssistant.Application.Services;
 using JobSeekerAssistant.Domain.Dtos;
 using JobSeekerAssistant.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,6 +24,7 @@ namespace JobSeekerAssistant.Api.Controllers
 
 
         [HttpGet("all/{userId}")]
+        [Authorize]
         public async Task<IResult> GetAllByUserIdAsync(string userId)
         {
             var letters = await _letterService.GetAllByUserIdAsync(userId);
@@ -31,6 +33,7 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IResult> GetByIdAsync(string id)
         {
             var letter = await _letterService.GetByIdAsync(id);
@@ -39,6 +42,7 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpPost("generate/{resumeId}")]
+        [Authorize]
         public async Task<IResult> Post(string resumeId, [FromBody] PromptRequestDto promptRequestDto )
         {
             
@@ -77,6 +81,7 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IResult> UpdateAsync(string id, [FromBody] Letter letter)
         {
             await _letterService.UpdateAsync(letter, id);
@@ -86,6 +91,7 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IResult> DeleteAsync(string id)
         {
             await _letterService.DeleteAsync(id);

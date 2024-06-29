@@ -1,6 +1,7 @@
 ﻿using JobSeekerAssistant.Application.Interfaces.Services;
 using JobSeekerAssistant.Application.Services;
 using JobSeekerAssistant.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -14,6 +15,7 @@ namespace JobSeekerAssistant.Api.Controllers
         private readonly IResumeService<string> _resumeService = resumeService;
        
         [HttpGet("all/{userId}")]
+        [Authorize]
         public async Task<IResult> GetAllByUserIdAsync(string userId)
         {
             var resumes = await _resumeService.GetAllByUserIdAsync(userId);
@@ -22,6 +24,7 @@ namespace JobSeekerAssistant.Api.Controllers
         }
 
         [HttpGet("{resumeId}")]
+        [Authorize]
         public async Task<IResult> GetByIdAsync(string resumeId)
         {
             var resume = await _resumeService.GetByIdAsync(resumeId);
@@ -31,6 +34,7 @@ namespace JobSeekerAssistant.Api.Controllers
 
         
         [HttpPost]
+        [Authorize]
         public async Task<IResult> Post([FromBody] Resume resume)
         {
             await _resumeService.AddAsync(resume);
@@ -40,14 +44,15 @@ namespace JobSeekerAssistant.Api.Controllers
 
        
         [HttpPut("{resumeId}")]
+        [Authorize]
         public async Task<IResult> Put(string resumeId, [FromBody] Resume resume)
         {
             await _resumeService.UpdateAsync(resume, resumeId);
 
             return Results.Ok();
         }
-// DELETE api/<Resume>/5
         [HttpDelete("{resumeId}")]
+        [Authorize]
         public async Task<IResult> Delete(string resumeId)
         {
             await _resumeService.DeleteAsync(resumeId);
