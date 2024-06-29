@@ -20,17 +20,22 @@ namespace JobSeekerAssistant.Api.Controllers
         private readonly IResumeService<string> _resumeService = resumeService;
         private readonly ILetterService<string> _letterService= letterService;
         private readonly HttpClient _httpClient = httpClientFactory.CreateClient("GptApi");
-        // GET: api/<LetterController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+
+        [HttpGet("all/{userId}")]
+        public async Task<IResult> GetAllByUserIdAsync(string userId)
         {
-            return new string[] { "value1", "value2" };
+            var letters = await _letterService.GetAllByUserIdAsync(userId);
+
+            return Results.Ok(letters);
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IResult> GetByIdAsync(string id)
         {
-            return "value";
+            var letter = await _letterService.GetByIdAsync(id);
+
+            return letter is null ? Results.NotFound($"No letter with id: {id} found") : Results.Ok(letter);
         }
 
         [HttpPost("generate/{resumeId}")]
@@ -71,16 +76,21 @@ namespace JobSeekerAssistant.Api.Controllers
 
         }
 
-        // PUT api/<LetterController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IResult> UpdateAsync(string id, [FromBody] Letter letter)
         {
+            await _letterService.UpdateAsync(letter, id);
+
+            return Results.Ok();
+
         }
 
-        // DELETE api/<LetterController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IResult> DeleteAsync(string id)
         {
+            await _letterService.DeleteAsync(id);
+
+            return Results.Ok();
         }
     }
 }

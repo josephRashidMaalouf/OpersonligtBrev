@@ -30,18 +30,18 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 | /resume/all/{userId} | GET    | string userId           | Resume[] | 200, 401      |
 | /resume/{resumeId}   | GET    | string resumeId         | Resume   | 200, 404, 401 |
 | /resume              | POST   | Resume                  |          | 200, 404, 401 |
-| /resume/{resumeId}   | PUT    | string resumeId, Resume |          | 200, 404, 401 |
-| /resume/{resumeId}   | DELETE | string resumeId, Resume |          | 200, 404, 401 |
+| /resume/{resumeId}   | PUT    | string resumeId, Resume |          | 200, 401      |
+| /resume/{resumeId}   | DELETE | string resumeId, Resume |          | 200, 401      |
 
 ### APPLICATION LETTER
 
 | PATH                        | METHOD | REQUEST                                  | RESPONSE | RESPONSE CODE |
 | --------------------------- | ------ | ---------------------------------------- | -------- | ------------- |
-| /letter/generate/{resumeId} | POST   | string resumeId, JobDto, string language | Letter   | 200, 404, 401 |
+| /letter/generate/{resumeId} | POST   | string resumeId, JobDto, string language | Letter   | 200, 401      |
 | /letter/{letterId}          | GET    | string letterId                          | Letter   | 200, 404, 401 |
 | /letter/all/{userId}        | GET    | string userId                            | Letter   | 200, 404, 401 |
-| /letter/{letterId}          | PUT    | string letterId, Letter                  |          | 200, 404, 401 |
-| /letter/{letterId}          | DELETE | string letterId                          |          | 200, 404, 401 |
+| /letter/{letterId}          | PUT    | string letterId, Letter                  |          | 200, 401      |
+| /letter/{letterId}          | DELETE | string letterId                          |          | 200, 401      |
 
 ## Entities & DTOs
 
