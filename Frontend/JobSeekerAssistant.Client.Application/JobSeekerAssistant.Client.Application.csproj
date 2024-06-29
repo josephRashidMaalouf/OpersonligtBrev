@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobSeekerAssistant.Client.Domain\JobSeekerAssistant.Client.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
