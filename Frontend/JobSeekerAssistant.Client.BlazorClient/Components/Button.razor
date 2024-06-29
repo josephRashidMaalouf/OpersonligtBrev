@@ -1,0 +1,23 @@
+﻿<button type="button" class="btn btn-@GetColor()">@ChildContent</button>
+
+@code {
+    [Parameter] public Colors Color { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string GetColor()
+    {
+        return Color switch
+
+        {
+            Colors.Blue => "primary",
+            Colors.Green => "success",
+            Colors.Red => "danger",
+            Colors.Cyan => "info",
+            Colors.Yellow => "warning",
+            Colors.DarkGrey => "dark",
+            Colors.Grey => "secondary",
+            Colors.LightGray => "light",
+            _ => ""
+        };
+    }
+}

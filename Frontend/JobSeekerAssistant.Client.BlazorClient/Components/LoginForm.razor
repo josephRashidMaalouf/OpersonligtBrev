@@ -1,0 +1,13 @@
+﻿<div class="card p-3 @AdditionalClasses">
+    <form>
+        <InputTextFloating Id="email" Placeholder="Användarnamn" Type="InputType.Email" AdditionalClasses="mb-3" />
+        <InputTextFloating Id="password" Placeholder="Lösenord" Type="InputType.Password" AdditionalClasses="mb-3" />
+        <Button Color="Colors.Blue">Logga in</Button>
+    </form>
+</div>
+
+
+@code {
+    [Parameter] 
+    public string AdditionalClasses { get; set; } = "";
+}

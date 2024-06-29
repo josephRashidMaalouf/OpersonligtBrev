@@ -1,0 +1,33 @@
+﻿@using JobSeekerAssistant.Client.Domain.Enums
+<div class="form-floating @AdditionalClasses">
+    <input type="@GetInputType()" class="form-control" id="floatingInput" placeholder="name@example.com">
+    <label for="floatingInput">@Placeholder</label>
+</div>
+
+@code {
+    [Parameter] public string Placeholder { get; set; } = "";
+
+    [Parameter]
+    public string AdditionalClasses { get; set; } = "";
+
+    [Parameter]
+    public InputType Type { get; set; } = InputType.Text;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    private string GetInputType()
+    {
+        return Type switch
+
+        {
+            InputType.Text => "text",
+            InputType.Email => "email",
+            InputType.Password => "password",
+            InputType.Search => "search",
+            InputType.Tel => "tel",
+            InputType.Url => "url",
+            _ => "text"
+        };
+    }
+}
