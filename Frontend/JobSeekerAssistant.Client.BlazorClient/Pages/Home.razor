@@ -1,9 +1,21 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>BrevProffsen</PageTitle>
 
-<h1>Hello, world!</h1>
+<AuthorizeView>
+    <Authorized>
+        Välkommen!
 
-Welcome to your new app.
+    </Authorized>
+    <NotAuthorized>
+        <div class="d-flex justify-content-center vh-100">
+            <div class="w-50">
+                <h1>Logga in</h1>
+                <LoginPage/>
+                <p>Inget konto? Klicka <a href="#">här</a> för att registrera dig!</p>
+            </div>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 
 
