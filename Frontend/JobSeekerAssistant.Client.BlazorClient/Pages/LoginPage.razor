@@ -1,5 +1,7 @@
-﻿<div class="card p-3 @AdditionalClasses">
-    <form>
+﻿@page "/login"
+
+<div class="card p-3 @AdditionalClasses">
+    <EditForm Model="LoginDto" OnValidSubmit="@OnLogin">
         <InputTextFloating Id="email"
                            Placeholder="Användarnamn" 
                            Type="InputType.Email" 
@@ -13,8 +15,10 @@
                            AdditionalClasses="mb-3" 
                            BindValue="@LoginDto.Password" 
                            BindValueChanged="@OnPasswordInputChanged"/>
-        <Button Color="Colors.Blue">Logga in</Button>
-    </form>
+        <Button Type="@ButtonType.Submit" 
+                Color="Colors.Blue"
+                >Logga in</Button>
+    </EditForm>
 </div>
 
 
@@ -24,6 +28,8 @@
     [Parameter] 
     public string AdditionalClasses { get; set; } = "";
 
+    [Parameter]
+    public EventCallback<EditContext> OnLogin { get; set; }
 
     private async Task OnEmailInputChanged(string newValue)
     {
@@ -35,4 +41,5 @@
     {
         LoginDto.Password = newValue;
     }
+
 }

@@ -1,8 +1,14 @@
-﻿<button type="button" class="btn btn-@GetColor()">@ChildContent</button>
+﻿<button onclick="@OnClick" type="@GetButtonType()" class="btn btn-@GetColor()">@ChildContent</button>
 
 @code {
     [Parameter] public Colors Color { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public ButtonType Type { get; set; } = ButtonType.Button;
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+
+
+
 
     private string GetColor()
     {
@@ -18,6 +24,18 @@
             Colors.Grey => "secondary",
             Colors.LightGray => "light",
             _ => ""
+        };
+    }
+
+    private string GetButtonType()
+    {
+        return Type switch
+
+        {
+            ButtonType.Button => "button",
+            ButtonType.Submit => "submit",
+            ButtonType.Reset => "reset",
+            _ => "button"
         };
     }
 }
