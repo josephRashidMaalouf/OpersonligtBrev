@@ -1,7 +1,13 @@
 ﻿@using JobSeekerAssistant.Client.Domain.Enums
 <div class="form-floating @AdditionalClasses">
-    <input type="@GetInputType()" class="form-control" id="floatingInput" placeholder="name@example.com">
-    <label for="floatingInput">@Placeholder</label>
+    <input type="@GetInputType()" 
+           class="form-control" 
+           id="@Id" 
+           placeholder="name@example.com"
+           value="@BindValue"
+           @oninput="(e) => OnBindValueChanged(e)"
+           >
+    <label for="@Id">@Placeholder</label>
 </div>
 
 @code {
@@ -15,6 +21,19 @@
 
     [Parameter]
     public string Id { get; set; }
+
+    [Parameter]
+    public string BindValue { get; set; }
+
+    [Parameter]
+    public EventCallback<string> BindValueChanged { get; set; }
+
+    public async Task OnBindValueChanged(ChangeEventArgs value)
+    {
+        string newValue = value.Value.ToString();
+        await BindValueChanged.InvokeAsync(newValue);
+    }
+
 
     private string GetInputType()
     {

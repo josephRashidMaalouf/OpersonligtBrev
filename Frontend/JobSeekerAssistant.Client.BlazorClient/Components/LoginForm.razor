@@ -1,13 +1,38 @@
 ﻿<div class="card p-3 @AdditionalClasses">
     <form>
-        <InputTextFloating Id="email" Placeholder="Användarnamn" Type="InputType.Email" AdditionalClasses="mb-3" />
-        <InputTextFloating Id="password" Placeholder="Lösenord" Type="InputType.Password" AdditionalClasses="mb-3" />
+        <InputTextFloating Id="email"
+                           Placeholder="Användarnamn" 
+                           Type="InputType.Email" 
+                           AdditionalClasses="mb-3" 
+                           BindValue="@LoginDto.Username" 
+                           BindValueChanged="@OnEmailInputChanged" />
+
+        <InputTextFloating Id="password" 
+                           Placeholder="Lösenord" 
+                           Type="InputType.Password"
+                           AdditionalClasses="mb-3" 
+                           BindValue="@LoginDto.Password" 
+                           BindValueChanged="@OnPasswordInputChanged"/>
         <Button Color="Colors.Blue">Logga in</Button>
     </form>
 </div>
 
 
 @code {
+    public LoginDto LoginDto { get; set; } = new();
+
     [Parameter] 
     public string AdditionalClasses { get; set; } = "";
+
+
+    private async Task OnEmailInputChanged(string newValue)
+    {
+        LoginDto.Username = newValue;
+    }
+
+
+    private async Task OnPasswordInputChanged(string newValue)
+    {
+        LoginDto.Password = newValue;
+    }
 }
