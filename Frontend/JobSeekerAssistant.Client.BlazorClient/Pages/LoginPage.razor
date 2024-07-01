@@ -1,7 +1,8 @@
 ﻿@page "/login"
+@inject IAccountManagement AccountManagement
 
-<div class="card p-3 @AdditionalClasses">
-    <EditForm Model="LoginDto" OnValidSubmit="@OnLogin">
+<div class="card p-3 mb-3">
+    <EditForm Model="LoginDto" OnValidSubmit="@DoLoginAsync">
         <InputTextFloating Id="email"
                            Placeholder="Användarnamn" 
                            Type="InputType.Email" 
@@ -17,7 +18,14 @@
                            BindValueChanged="@OnPasswordInputChanged"/>
         <Button Type="@ButtonType.Submit" 
                 Color="Colors.Blue"
-                >Logga in</Button>
+        >Logga in</Button>
+        @if (errors)
+        {
+            @foreach (var error in errorList)
+            {
+                <div class="alert alert-danger mb-3">@error</div>
+            }
+        }
     </EditForm>
 </div>
 
@@ -25,11 +33,44 @@
 @code {
     public LoginDto LoginDto { get; set; } = new();
 
-    [Parameter] 
-    public string AdditionalClasses { get; set; } = "";
+    
+    private bool success, errors;
+    private string[] errorList = [];
 
-    [Parameter]
-    public EventCallback<EditContext> OnLogin { get; set; }
+    public async Task DoLoginAsync()
+    {
+        success = errors = false;
+        errorList = [];
+
+        if (string.IsNullOrWhiteSpace(LoginDto.Username))
+        {
+            errors = true;
+            errorList = ["För att logga in behöver du ange ditt användarnamn."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(LoginDto.Password))
+        {
+            errors = true;
+            errorList = ["För att logga in behöver du ange ditt lösenord."];
+
+            return;
+        }
+
+        var result = await AccountManagement.LoginAsync(LoginDto.Username, LoginDto.Password);
+
+        if (result.Succeeded)
+        {
+            success = true;
+            LoginDto.Username = LoginDto.Password = string.Empty;
+        }
+        else
+        {
+            errors = true;
+            errorList = result.ErrorList;
+        }
+    }
 
     private async Task OnEmailInputChanged(string newValue)
     {

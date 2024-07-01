@@ -1,8 +1,8 @@
-﻿using JobSeekerAssistant.Client.Domain.Interfaces;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Text;
+using JobSeekerAssistant.Client.Application.Interfaces;
 using JobSeekerAssistant.Client.Domain.Dtos;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -25,7 +25,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
         new(new ClaimsIdentity());
 
     public CookieAuthenticationStateProvider(IHttpClientFactory httpClientFactory)
-        => _httpClient = httpClientFactory.CreateClient("SchoolMeetingsApi");
+        => _httpClient = httpClientFactory.CreateClient("JobSeekerAssistantApi");
 
     public async Task<AuthResponse> RegisterAsync(string email, string password)
     {

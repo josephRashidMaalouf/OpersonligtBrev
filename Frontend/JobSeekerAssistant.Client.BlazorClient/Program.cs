@@ -1,6 +1,6 @@
+using JobSeekerAssistant.Client.Application.Interfaces;
 using JobSeekerAssistant.Client.BlazorClient;
 using JobSeekerAssistant.Client.BlazorClient.Identity;
-using JobSeekerAssistant.Client.Domain.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

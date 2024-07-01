@@ -51,6 +51,15 @@ builder.Services.AddHttpClient("GptApi", options =>
     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", builder.Configuration["GptKey"]);
 });
 
+builder.Services.AddCors(
+    options => options.AddPolicy(
+        "wasm",
+        policy => policy.WithOrigins("https://localhost:7297", "https://localhost:7137")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()));
+
+
 
 var app = builder.Build();
 

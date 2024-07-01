@@ -1,6 +1,6 @@
 ﻿using JobSeekerAssistant.Client.Domain.Dtos;
 
-namespace JobSeekerAssistant.Client.Domain.Interfaces;
+namespace JobSeekerAssistant.Client.Application.Interfaces;
 
 public interface IAccountManagement
 {
