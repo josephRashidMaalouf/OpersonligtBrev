@@ -134,7 +134,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
                     userInfo.Claims.Where(c => c.Key != ClaimTypes.Name && c.Key != ClaimTypes.Email)
                         .Select(c => new Claim(c.Key, c.Value)));
 
-                var rolesResponse = await _httpClient.GetAsync("/user/roles");
+                var rolesResponse = await _httpClient.GetAsync("/identity/roles");
 
                 rolesResponse.EnsureSuccessStatusCode();
 
@@ -179,7 +179,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
     {
         const string Empty = "{}";
         var emptyContent = new StringContent(Empty, Encoding.UTF8, "application/json");
-        await _httpClient.PostAsync("/user/logout", emptyContent);
+        await _httpClient.PostAsync("/identity/logout", emptyContent);
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
     }
 

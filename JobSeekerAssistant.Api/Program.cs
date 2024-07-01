@@ -72,6 +72,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("wasm");
+
+
 app.MapIdentityApi<User>();
 
 app.UseAuthentication();
