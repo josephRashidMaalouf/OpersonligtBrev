@@ -30,10 +30,15 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\Button.razor" />
     <_ContentIncludedByDefault Remove="Components\InputTextFloating.razor" />
+    <_ContentIncludedByDefault Remove="Components\NavBar.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Components\Button.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\NavBar.razor" />
   </ItemGroup>
 
 </Project>
