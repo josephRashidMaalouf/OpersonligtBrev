@@ -1,6 +1,8 @@
-﻿namespace JobSeekerAssistant.Client.Infrastructure.Services;
+﻿using JobSeekerAssistant.Client.Application.Interfaces;
 
-public class ResumeService()
+namespace JobSeekerAssistant.Client.Infrastructure.Services;
+
+public class ResumeService(IHttpClientFactory httpFactory) : 
 {
     
 }
