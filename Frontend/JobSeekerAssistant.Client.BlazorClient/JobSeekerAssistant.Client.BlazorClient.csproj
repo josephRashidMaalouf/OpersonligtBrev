@@ -29,6 +29,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\Button.razor" />
     <_ContentIncludedByDefault Remove="Components\InputTextFloating.razor" />
+    <_ContentIncludedByDefault Remove="Components\ListCreater.razor" />
     <_ContentIncludedByDefault Remove="Components\NavBar.razor" />
     <_ContentIncludedByDefault Remove="Pages\LetterPage.razor" />
   </ItemGroup>
@@ -43,6 +44,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\LetterPage.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\ListCreater.razor" />
   </ItemGroup>
 
 </Project>
