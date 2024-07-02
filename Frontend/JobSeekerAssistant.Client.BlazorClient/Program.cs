@@ -1,6 +1,7 @@
 using JobSeekerAssistant.Client.Application.Interfaces;
 using JobSeekerAssistant.Client.BlazorClient;
 using JobSeekerAssistant.Client.BlazorClient.Identity;
+using JobSeekerAssistant.Client.Infrastructure.DependecyInjection;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -24,5 +25,7 @@ builder.Services.AddHttpClient(
         "JobSeekerAssistantApi",
         opt => opt.BaseAddress = new Uri("https://localhost:7137"))
     .AddHttpMessageHandler<CookieHandler>();
+
+builder.Services.AddServices();
 
 await builder.Build().RunAsync();
