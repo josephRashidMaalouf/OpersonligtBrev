@@ -1,6 +1,8 @@
-﻿namespace JobSeekerAssistant.Client.Application.Interfaces;
+﻿using JobSeekerAssistant.Client.Domain.Models;
 
-public interface IResumeService : IService<Resume,>
+namespace JobSeekerAssistant.Client.Application.Interfaces;
+
+public interface IResumeService : IService<ResumeModel, string, string>
 {
-    
+    Task<bool> PostAsync(ResumeModel resumeModel);
 }
