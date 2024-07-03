@@ -1,9 +1,28 @@
 ﻿@page "/my-resume"
 @inject IResumeService ResumeService
 
+<ListCreater PlaceHolder="Språk" 
+             ListItems="@Languages"
+             ListItemChanged="OnLanguagesChanged"
+             Id="lang"></ListCreater>
+<ListCreater PlaceHolder="Färdigheter"
+             ListItems="@Skills"
+             ListItemChanged="OnSkillsChanged"
+             Id="skill"></ListCreater>
 
-<h3>ResumePage</h3>
 
 @code {
-    
+    public List<string> Languages { get; set; } = new();
+
+    public List<string> Skills { get; set; } = new();
+
+    private void OnLanguagesChanged(List<string> updatedLanguages)
+    {
+        Languages = updatedLanguages;
+    }
+
+    private void OnSkillsChanged(List<string> updatedLanguages)
+    {
+        Languages = updatedLanguages;
+    }
 }

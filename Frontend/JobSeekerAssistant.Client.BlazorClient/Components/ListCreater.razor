@@ -1,10 +1,54 @@
-﻿<InputTextFloating Type="InputType.Text" 
-                   Id="input"
-                   BindValue="@InputText"
-                   BindValueChanged="@OnBindValueChanged"/>
+﻿
+
+<div class="card p-3">
+    <form class="d-flex align-items-stretch">
+        <InputTextFloating Type="InputType.Text"
+                           Id="@Id"
+                           BindValue="@InputText"
+                           BindValueChanged="@OnBindValueChanged"
+                           Placeholder="@PlaceHolder"
+                           AdditionalClasses="mb-3 flex-grow-1" />
+        <Button OnClick="@AddItem" AdditionalClasses="ms-2 h-100">Lägg till</Button>
+    </form>
+
+    <ul class="list-group">
+        <Virtualize Items="@ListItems">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <p class="mb-0">@context</p>
+                <Button Color="Colors.Red"
+                        OnClick="async () => await RemoveItem(context)">
+                    <i class="fa-solid fa-trash"/>
+                </Button>
+            </li>
+        </Virtualize>
+    </ul>
+</div>
 
 @code {
+    [Parameter] public List<string> ListItems { get; set; }
+    [Parameter] public string PlaceHolder { get; set; }
+    [Parameter] public EventCallback<List<string>> ListItemChanged { get; set; }
+    [Parameter] public string Id { get; set; }
+
+
     public string InputText { get; set; } = "";
+
+    private async Task AddItem()
+    {
+        if (string.IsNullOrWhiteSpace(InputText) is false)
+        {
+            ListItems.Add(InputText);
+            InputText = string.Empty;
+            await ListItemChanged.InvokeAsync(ListItems);
+        }
+    }
+
+    private async Task RemoveItem(string item)
+    {
+        ListItems.Remove(item);
+        await ListItemChanged.InvokeAsync(ListItems);
+    }
+
 
     private async Task OnBindValueChanged(string newValue)
     {
