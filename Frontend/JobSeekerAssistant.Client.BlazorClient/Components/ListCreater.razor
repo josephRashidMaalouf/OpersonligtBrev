@@ -1,5 +1,13 @@
-﻿<h3>ListCreater</h3>
+﻿<InputTextFloating Type="InputType.Text" 
+                   Id="input"
+                   BindValue="@InputText"
+                   BindValueChanged="@OnBindValueChanged"/>
 
 @code {
-    
+    public string InputText { get; set; } = "";
+
+    private async Task OnBindValueChanged(string newValue)
+    {
+        InputText = newValue;
+    }
 }
