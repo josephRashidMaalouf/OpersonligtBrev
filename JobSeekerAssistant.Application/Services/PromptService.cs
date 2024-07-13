@@ -8,7 +8,7 @@ public class PromptService : IPromptService
 {
     public async Task<string> GeneratePromptForLetterAsync(JobDto job, Resume resume, string language)
     {
-        var prompt = $"Hej! Jag vill att du läser in följande information om mig och det företag jag tänkt söka jobb hos. " +
+        var prompt = $"Hej! Mitt namn är {resume.Name} Jag vill att du läser in följande information om mig och det företag jag tänkt söka jobb hos. " +
                      $"Utgå från denna information och skriv en ett personligt brev som jag kan använda vid mig ansökan. " +
                      $"Det är väldigt viktigt att du funderar noggrant på hur du formulerar dig. Jag vill att du formulerar" +
                      $" dig på ett sätt som känns avslappnat och naturligt. \n" +

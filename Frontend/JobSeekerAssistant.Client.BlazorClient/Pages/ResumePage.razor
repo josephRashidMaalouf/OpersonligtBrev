@@ -1,28 +1,54 @@
 ﻿@page "/my-resume"
 @inject IResumeService ResumeService
 
+
+    <InputTextFloating Id="resume-name"
+                       Placeholder="Ditt namn"
+                       BindValue="@Resume.Name"
+                       BindValueChanged="@OnResumeNameChanged"
+                       AdditionalClasses="mb-3"/>
+
+    <BootStrapTextArea Id="about-me"
+                       Placeholder="Beskriv dig själv kortfattat..."
+                       Rows="4"
+                       BindValue="@Resume.AboutMe"
+                       BindValueChanged="OnAboutMeChanged"
+                       AdditionalClasses="mb-3"
+                       ></BootStrapTextArea>
+
+                   
+
+
 <ListCreater PlaceHolder="Språk" 
-             ListItems="@Languages"
+             ListItems="@Resume.Languages"
              ListItemChanged="OnLanguagesChanged"
              Id="lang"></ListCreater>
 <ListCreater PlaceHolder="Färdigheter"
-             ListItems="@Skills"
+             ListItems="@Resume.Skills"
              ListItemChanged="OnSkillsChanged"
              Id="skill"></ListCreater>
 
 
 @code {
-    public List<string> Languages { get; set; } = new();
+    public ResumeModel Resume = new();
 
-    public List<string> Skills { get; set; } = new();
+    private void OnAboutMeChanged(string newValue)
+    {
+        Resume.AboutMe = newValue;
+    }
+
+    private void OnResumeNameChanged(string newValue)
+    {
+        Resume.Name = newValue;
+    }
 
     private void OnLanguagesChanged(List<string> updatedLanguages)
     {
-        Languages = updatedLanguages;
+        Resume.Languages = updatedLanguages;
     }
 
     private void OnSkillsChanged(List<string> updatedSkills)
     {
-        Skills = updatedSkills;
+        Resume.Skills = updatedSkills;
     }
 }
