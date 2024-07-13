@@ -1,4 +1,4 @@
-﻿namespace JobSeekerAssistant.Domain.Entities;
+﻿namespace JobSeekerAssistant.Client.Domain.Models;
 
 public class ResumeWorkItem
 {

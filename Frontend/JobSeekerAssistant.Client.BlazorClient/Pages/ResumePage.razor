@@ -2,24 +2,23 @@
 @inject IResumeService ResumeService
 
 
-    <InputTextFloating Id="resume-name"
-                       Placeholder="Ditt namn"
-                       BindValue="@Resume.Name"
-                       BindValueChanged="@OnResumeNameChanged"
-                       AdditionalClasses="mb-3"/>
+<InputTextFloating Id="resume-name"
+                   Placeholder="Ditt namn"
+                   BindValue="@Resume.Name"
+                   BindValueChanged="@OnResumeNameChanged"
+                   AdditionalClasses="mb-3" />
 
-    <BootStrapTextArea Id="about-me"
-                       Placeholder="Beskriv dig själv kortfattat..."
-                       Rows="4"
-                       BindValue="@Resume.AboutMe"
-                       BindValueChanged="OnAboutMeChanged"
-                       AdditionalClasses="mb-3"
-                       ></BootStrapTextArea>
-
-                   
+<BootStrapTextArea Id="about-me"
+                   Placeholder="Beskriv dig själv kortfattat..."
+                   Rows="4"
+                   BindValue="@Resume.AboutMe"
+                   BindValueChanged="OnAboutMeChanged"
+                   AdditionalClasses="mb-3"></BootStrapTextArea>
 
 
-<ListCreater PlaceHolder="Språk" 
+
+
+<ListCreater PlaceHolder="Språk"
              ListItems="@Resume.Languages"
              ListItemChanged="OnLanguagesChanged"
              Id="lang"></ListCreater>
@@ -27,6 +26,9 @@
              ListItems="@Resume.Skills"
              ListItemChanged="OnSkillsChanged"
              Id="skill"></ListCreater>
+
+<WorkItemForm WorkItems="Resume.ResumeWorkItems" 
+              ListItemChanged="@OnWorkItemsChanged"/>
 
 
 @code {
@@ -50,5 +52,10 @@
     private void OnSkillsChanged(List<string> updatedSkills)
     {
         Resume.Skills = updatedSkills;
+    }
+
+    private void OnWorkItemsChanged(List<ResumeWorkItem> updatedWorkItem)
+    {
+        Resume.ResumeWorkItems = updatedWorkItem;
     }
 }

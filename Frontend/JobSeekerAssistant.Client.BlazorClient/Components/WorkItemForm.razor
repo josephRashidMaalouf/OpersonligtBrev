@@ -1,10 +1,92 @@
-﻿<div class="card p-3 mb-3">
-    <form class="d-flex align-items-stretch" @onsubmit="AddItem">
-   
+﻿@using JobSeekerAssistant.Client.Domain.Models
+<div class="card p-3 mb-3">
+
+    <h4>Lägg till en yrkeslivserfarenhet</h4>
+    <form @onsubmit="@AddItem">
+        <InputTextFloating Id="company-name"
+                           AdditionalClasses="mb-3"
+                           Placeholder="Företagets namn"
+                           BindValue="@WorkItem.CompanyName"
+                           BindValueChanged="@OnCompanyNameChanged" />
+        <InputTextFloating Id="job-title"
+                           AdditionalClasses="mb-3"
+                           Placeholder="Yrkestitel"
+                           BindValue="@WorkItem.Title"
+                           BindValueChanged="@OnWorkTitleChanged" />
+        <div class="input-group mb-3">
+            <span class="input-group-text">Års erfarenhet</span>
+            <input class="form-control"
+                   type="number"
+                   value="@WorkItem.YearOfExperience"
+                   @oninput="@OnYearsChanged" />
+        </div>
+        <BootStrapTextArea Placeholder="Beskriv vad du gjorde"
+                           AdditionalClasses="mb-3"
+                           BindValue="@WorkItem.Description"
+                           BindValueChanged="@OnDescriptionChanged" />
+        <Button Type="@ButtonType.Submit" AdditionalClasses="mb-3">Lägg till</Button>
     </form>
 
-  
+
+    <ul class="list-group">
+        <Virtualize Items="WorkItems">
+            <li class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@context.Title</h5>
+                    <small>@context.YearOfExperience års erfarenhet</small>
+                </div>
+                <p class="mb-1">@context.CompanyName</p>
+                <small>@context.Description</small>
+            </li>
+        </Virtualize>
+    </ul>
+
+
 </div>
 @code {
-    
+    public ResumeWorkItem WorkItem { get; set; } = new();
+
+    [Parameter] public List<ResumeWorkItem> WorkItems { get; set; }
+    [Parameter] public EventCallback<List<ResumeWorkItem>> ListItemChanged { get; set; }
+
+
+    private async Task AddItem()
+    {
+        if (string.IsNullOrWhiteSpace(WorkItem.CompanyName) ||
+            string.IsNullOrWhiteSpace(WorkItem.Title) ||
+            string.IsNullOrWhiteSpace(WorkItem.Description) ||
+            string.IsNullOrWhiteSpace(WorkItem.YearOfExperience.ToString()))
+        {
+            return;
+        }
+
+        WorkItems.Add(WorkItem);
+        WorkItem = new();
+        await ListItemChanged.InvokeAsync(WorkItems);
+    }
+
+    private async Task OnCompanyNameChanged(string newValue)
+    {
+        WorkItem.CompanyName = newValue;
+    }
+    private async Task OnWorkTitleChanged(string newValue)
+    {
+        WorkItem.Title = newValue;
+    }
+    private async Task OnYearsChanged(ChangeEventArgs newValue)
+    {
+        if (int.TryParse(newValue.Value?.ToString(), out int years))
+        {
+            WorkItem.YearOfExperience = years;
+        }
+        else
+        {
+            WorkItem.YearOfExperience = 0; 
+        }
+    }
+    private async Task OnDescriptionChanged(string newValue)
+    {
+        WorkItem.Description = newValue;
+    }
+
 }
