@@ -1,14 +1,15 @@
 ﻿
 
-<div class="card p-3">
-    <form class="d-flex align-items-stretch">
+<div class="card p-3 mb-3">
+    <form class="d-flex align-items-stretch" @onsubmit="AddItem">
         <InputTextFloating Type="InputType.Text"
                            Id="@Id"
                            BindValue="@InputText"
                            BindValueChanged="@OnBindValueChanged"
                            Placeholder="@PlaceHolder"
                            AdditionalClasses="mb-3 flex-grow-1" />
-        <Button OnClick="@AddItem" AdditionalClasses="ms-2 h-100">Lägg till</Button>
+        <Button Type="@ButtonType.Submit" 
+                AdditionalClasses="ms-2 h-100">Lägg till</Button>
     </form>
 
     <ul class="list-group">
