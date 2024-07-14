@@ -38,7 +38,14 @@
             <li class="list-group-item">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">@context.Program</h5>
-                    <small>@context.Years år</small>
+                    <small>
+                        @context.Years år
+                        <Button Color="Colors.Red"
+                                OnClick="async () => await RemoveItem(context)">
+                            <i class="fa-solid fa-trash" />
+                        </Button>
+                    </small>
+                    
                 </div>
                 <p class="mb-1"><b>@context.School</b></p>
                 <p class="mb-1"><i>@context.Degree</i></p>
@@ -69,6 +76,12 @@
 
         EducationItems.Add(EducationItem);
         EducationItem = new();
+        await ListItemChanged.InvokeAsync(EducationItems);
+    }
+
+    private async Task RemoveItem(ResumeEducationItem item)
+    {
+        EducationItems.Remove(item);
         await ListItemChanged.InvokeAsync(EducationItems);
     }
 

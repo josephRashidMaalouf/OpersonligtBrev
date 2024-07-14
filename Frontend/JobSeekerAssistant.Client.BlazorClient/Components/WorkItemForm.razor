@@ -32,7 +32,12 @@
             <li class="list-group-item">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">@context.Title</h5>
-                    <small>@context.YearOfExperience års erfarenhet</small>
+                    <small>@context.YearOfExperience års erfarenhet
+                        <Button Color="Colors.Red"
+                                OnClick="async () => await RemoveItem(context)">
+                            <i class="fa-solid fa-trash" />
+                        </Button>
+                    </small>
                 </div>
                 <p class="mb-1">@context.CompanyName</p>
                 <small>@context.Description</small>
@@ -61,6 +66,12 @@
 
         WorkItems.Add(WorkItem);
         WorkItem = new();
+        await ListItemChanged.InvokeAsync(WorkItems);
+    }
+
+    private async Task RemoveItem(ResumeWorkItem item)
+    {
+        WorkItems.Remove(item);
         await ListItemChanged.InvokeAsync(WorkItems);
     }
 
