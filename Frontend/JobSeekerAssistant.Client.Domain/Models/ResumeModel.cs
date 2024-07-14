@@ -1,6 +1,4 @@
 ﻿using JobSeekerAssistant.Client.Domain.Interfaces;
-using JobSeekerAssistant.Domain.Entities;
-
 namespace JobSeekerAssistant.Client.Domain.Models;
 
 public class ResumeModel:  IModel<string> 

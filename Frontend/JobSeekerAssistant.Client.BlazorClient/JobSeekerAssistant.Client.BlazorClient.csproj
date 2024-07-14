@@ -29,6 +29,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Components\BootStrapTextArea.razor" />
     <_ContentIncludedByDefault Remove="Components\Button.razor" />
+    <_ContentIncludedByDefault Remove="Components\EducationItemForm.razor" />
     <_ContentIncludedByDefault Remove="Components\InputTextFloating.razor" />
     <_ContentIncludedByDefault Remove="Components\ListCreater.razor" />
     <_ContentIncludedByDefault Remove="Components\NavBar.razor" />
@@ -58,6 +59,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Components\WorkItemForm.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\EducationItemForm.razor" />
   </ItemGroup>
 
 </Project>

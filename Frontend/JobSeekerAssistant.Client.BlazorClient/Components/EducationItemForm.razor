@@ -1,0 +1,102 @@
+﻿<div class="card p-3 mb-3">
+
+    <h4>Lägg till en utbildning</h4>
+    <form @onsubmit="@AddItem">
+        <InputTextFloating Id="school-name"
+                           AdditionalClasses="mb-3"
+                           Placeholder="Skolans namn"
+                           BindValue="@EducationItem.School"
+                           BindValueChanged="@OnSchoolChanged" />
+        <InputTextFloating Id="program"
+                           AdditionalClasses="mb-3"
+                           Placeholder="Utbildningen/programmets namn"
+                           BindValue="@EducationItem.Program"
+                           BindValueChanged="@OnProgramChanged" />
+        <InputTextFloating Id="degree"
+                           AdditionalClasses="mb-3"
+                           Placeholder="Examenstitel"
+                           BindValue="@EducationItem.Degree"
+                           BindValueChanged="@OnDegreeChanged" />
+        <div class="input-group mb-3">
+            <span class="input-group-text">Utbildningens längd i år</span>
+            <input class="form-control"
+                   type="number"
+                   value="@EducationItem.Years"
+                   @oninput="@OnYearsChanged" />
+        </div>
+        <BootStrapTextArea Placeholder="Beskriv utbildningen"
+                           AdditionalClasses="mb-3"
+                           BindValue="@EducationItem.Description"
+                           BindValueChanged="@OnDescriptionChanged" />
+        <Button Type="@ButtonType.Submit" AdditionalClasses="mb-3">Lägg till</Button>
+    </form>
+
+
+    <ul class="list-group">
+        <Virtualize Items="EducationItems">
+            <li class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@context.Program</h5>
+                    <small>@context.Years år</small>
+                </div>
+                <p class="mb-1"><b>@context.School</b></p>
+                <p class="mb-1"><i>@context.Degree</i></p>
+                <small>@context.Description</small>
+            </li>
+        </Virtualize>
+    </ul>
+
+
+</div>
+@code {
+    public ResumeEducationItem EducationItem
+    { get; set; } = new();
+
+    [Parameter] public List<ResumeEducationItem> EducationItems { get; set; }
+    [Parameter] public EventCallback<List<ResumeEducationItem>> ListItemChanged { get; set; }
+
+
+    private async Task AddItem()
+    {
+        if (string.IsNullOrWhiteSpace(EducationItem.School) ||
+            string.IsNullOrWhiteSpace(EducationItem.Program) ||
+            string.IsNullOrWhiteSpace(EducationItem.Description) ||
+            string.IsNullOrWhiteSpace(EducationItem.Years.ToString()))
+        {
+            return;
+        }
+
+        EducationItems.Add(EducationItem);
+        EducationItem = new();
+        await ListItemChanged.InvokeAsync(EducationItems);
+    }
+
+    private async Task OnSchoolChanged(string newValue)
+    {
+        EducationItem.School = newValue;
+    }
+    private async Task OnProgramChanged(string newValue)
+    {
+        EducationItem.Program = newValue;
+    }
+    private async Task OnDegreeChanged(string newValue)
+    {
+        EducationItem.Degree = newValue;
+    }
+    private async Task OnYearsChanged(ChangeEventArgs newValue)
+    {
+        if (int.TryParse(newValue.Value?.ToString(), out int years))
+        {
+            EducationItem.Years = years;
+        }
+        else
+        {
+            EducationItem.Years = 0;
+        }
+    }
+    private async Task OnDescriptionChanged(string newValue)
+    {
+        EducationItem.Description = newValue;
+    }
+
+}

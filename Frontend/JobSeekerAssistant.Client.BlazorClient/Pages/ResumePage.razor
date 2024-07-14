@@ -27,8 +27,12 @@
              ListItemChanged="OnSkillsChanged"
              Id="skill"></ListCreater>
 
-<WorkItemForm WorkItems="Resume.ResumeWorkItems" 
+<WorkItemForm WorkItems="@Resume.ResumeWorkItems" 
               ListItemChanged="@OnWorkItemsChanged"/>
+
+<EducationItemForm EducationItems="@Resume.ResumeEducationItems"
+                   ListItemChanged="@OnEducationItemsChanged"/>
+
 
 
 @code {
@@ -57,5 +61,10 @@
     private void OnWorkItemsChanged(List<ResumeWorkItem> updatedWorkItem)
     {
         Resume.ResumeWorkItems = updatedWorkItem;
+    }
+
+    private void OnEducationItemsChanged(List<ResumeEducationItem> updatedEducationItems)
+    {
+        Resume.ResumeEducationItems = updatedEducationItems;
     }
 }
