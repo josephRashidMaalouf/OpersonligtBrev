@@ -20,6 +20,18 @@ public class LetterService(IHttpClientFactory httpClientFactory) : ILetterServic
         return result!;
     }
 
+    public async Task<IEnumerable<LetterModel>> GetAllByUserEmailAsync(string email)
+    {
+        var response = await _httpClient.GetAsync($"Letter/all/{email}");
+
+        if (response.IsSuccessStatusCode is false)
+            return new List<LetterModel>();
+
+        var result = await response.Content.ReadFromJsonAsync<List<LetterModel>>();
+
+        return result!;
+    }
+
     public async Task<bool> UpdateAsync(string id, LetterModel model)
     {
         var response = await _httpClient.PutAsJsonAsync<LetterModel>($"letter/{id}", model);

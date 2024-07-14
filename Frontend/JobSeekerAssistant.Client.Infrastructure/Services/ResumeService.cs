@@ -19,6 +19,18 @@ public class ResumeService(IHttpClientFactory httpFactory) : IResumeService
         return result!;
     }
 
+    public async Task<IEnumerable<ResumeModel>> GetAllByUserEmailAsync(string email)
+    {
+        var response = await _httpClient.GetAsync($"Resume/all/{email}");
+
+        if (response.IsSuccessStatusCode is false)
+            return new List<ResumeModel>();
+
+        var result = await response.Content.ReadFromJsonAsync<List<ResumeModel>>();
+
+        return result!;
+    }
+
     public async Task<bool> UpdateAsync(string id, ResumeModel model)
     {
         var response = await _httpClient.PutAsJsonAsync<ResumeModel>($"resume/{id}", model);
