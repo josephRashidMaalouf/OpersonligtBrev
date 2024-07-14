@@ -32,6 +32,15 @@ namespace JobSeekerAssistant.Api.Controllers
             return Results.Ok(letters);
         }
 
+        [HttpGet("all/{userEmail}")]
+        [Authorize]
+        public async Task<IResult> GetAllByUserEmailAsync(string userEmail)
+        {
+            var letters = await _letterService.GetAllByUserEmailAsync(userEmail);
+
+            return Results.Ok(letters);
+        }
+
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IResult> GetByIdAsync(string id)

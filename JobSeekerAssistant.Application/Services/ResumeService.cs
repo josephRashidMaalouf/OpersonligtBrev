@@ -1,6 +1,7 @@
 ﻿using JobSeekerAssistant.Application.Interfaces.Repositories;
 using JobSeekerAssistant.Application.Interfaces.Services;
 using JobSeekerAssistant.Domain.Entities;
+using JobSeekerAssistant.Domain.Entities.Identity;
 
 namespace JobSeekerAssistant.Application.Services;
 
@@ -10,6 +11,13 @@ public class ResumeService(IResumeRepository<string> resumeRepository) : IResume
     public async Task<IEnumerable<Resume>> GetAllByUserIdAsync(string userId)
     {
         var resumes = await _resumeRepository.GetAllByUserIdAsync(userId);
+
+        return resumes;
+    }
+
+    public async Task<IEnumerable<Resume>> GetAllByUserEmailAsync(string userEmail)
+    {
+        var resumes = await _resumeRepository.GetAllByUserIdAsync(userEmail);
 
         return resumes;
     }

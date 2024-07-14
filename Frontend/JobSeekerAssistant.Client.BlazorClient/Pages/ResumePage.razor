@@ -33,10 +33,27 @@
 <EducationItemForm EducationItems="@Resume.ResumeEducationItems"
                    ListItemChanged="@OnEducationItemsChanged"/>
 
+<Button Color="@Colors.Green" 
+        Type="@ButtonType.Button"
+        OnClick="@OnSaveResume">Spara</Button>
+
 
 
 @code {
     public ResumeModel Resume = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+       await base.OnInitializedAsync();
+
+       //TODO: implement
+    }
+
+
+    private async Task OnSaveResume()
+    {
+        await ResumeService.UpdateAsync(Resume.Id, Resume);
+    }
 
     private void OnAboutMeChanged(string newValue)
     {
