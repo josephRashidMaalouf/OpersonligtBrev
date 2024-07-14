@@ -17,7 +17,7 @@ public class LetterService(ILetterRepository<string> letterRepository) : ILetter
 
     public async Task<IEnumerable<Letter>> GetAllByUserEmailAsync(string userEmail)
     {
-        var letters = await _letterRepository.GetAllByUserIdAsync(userEmail);
+        var letters = await _letterRepository.GetAllByUserEmailAsync(userEmail);
         return letters;
     }
 

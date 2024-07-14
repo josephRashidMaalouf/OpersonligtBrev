@@ -21,7 +21,7 @@ public class ResumeService(IHttpClientFactory httpFactory) : IResumeService
 
     public async Task<IEnumerable<ResumeModel>> GetAllByUserEmailAsync(string email)
     {
-        var response = await _httpClient.GetAsync($"Resume/all/{email}");
+        var response = await _httpClient.GetAsync($"Resume/user/{email}");
 
         if (response.IsSuccessStatusCode is false)
             return new List<ResumeModel>();
@@ -47,7 +47,7 @@ public class ResumeService(IHttpClientFactory httpFactory) : IResumeService
 
     public async Task<bool> PostAsync(ResumeModel resumeModel)
     {
-        var getAll = await GetAllByUserIdAsync(resumeModel.UserId);
+        var getAll = await GetAllByUserEmailAsync(resumeModel.UserEmail);
 
         if (getAll.Any())
             return false;

@@ -17,7 +17,7 @@ public class ResumeService(IResumeRepository<string> resumeRepository) : IResume
 
     public async Task<IEnumerable<Resume>> GetAllByUserEmailAsync(string userEmail)
     {
-        var resumes = await _resumeRepository.GetAllByUserIdAsync(userEmail);
+        var resumes = await _resumeRepository.GetAllByUserEmailAsync(userEmail);
 
         return resumes;
     }

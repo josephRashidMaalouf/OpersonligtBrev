@@ -1,5 +1,7 @@
 ﻿@page "/my-resume"
+@using System.Text.Json
 @inject IResumeService ResumeService
+@inject IAccountManagement AuthenticationStateProvider
 
 
 <InputTextFloating Id="resume-name"
@@ -27,10 +29,10 @@
              ListItemChanged="OnSkillsChanged"
              Id="skill"></ListCreater>
 
-<WorkItemForm WorkItems="@Resume.ResumeWorkItems" 
+<WorkItemForm WorkItems="@Resume.WorkItems" 
               ListItemChanged="@OnWorkItemsChanged"/>
 
-<EducationItemForm EducationItems="@Resume.ResumeEducationItems"
+<EducationItemForm EducationItems="@Resume.EducationItems"
                    ListItemChanged="@OnEducationItemsChanged"/>
 
 <Button Color="@Colors.Green" 
@@ -40,19 +42,38 @@
 
 
 @code {
-    public ResumeModel Resume = new();
+    private ResumeModel Resume = new();
+    private string UserEmail { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
        await base.OnInitializedAsync();
 
-       //TODO: implement
+       UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
+
+       var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+
+       if(resumes.Any())
+           Resume = resumes.First();
     }
 
 
     private async Task OnSaveResume()
     {
-        await ResumeService.UpdateAsync(Resume.Id, Resume);
+        if (string.IsNullOrWhiteSpace(Resume.UserEmail))
+        {
+            Resume.UserEmail = UserEmail;
+
+            var json = JsonSerializer.Serialize(Resume);
+            Console.WriteLine(json);
+
+            await ResumeService.PostAsync(Resume);
+            
+        }
+        else
+        {
+            await ResumeService.UpdateAsync(Resume.Id, Resume);
+        }
     }
 
     private void OnAboutMeChanged(string newValue)
@@ -77,11 +98,11 @@
 
     private void OnWorkItemsChanged(List<ResumeWorkItem> updatedWorkItem)
     {
-        Resume.ResumeWorkItems = updatedWorkItem;
+        Resume.WorkItems = updatedWorkItem;
     }
 
     private void OnEducationItemsChanged(List<ResumeEducationItem> updatedEducationItems)
     {
-        Resume.ResumeEducationItems = updatedEducationItems;
+        Resume.EducationItems = updatedEducationItems;
     }
 }

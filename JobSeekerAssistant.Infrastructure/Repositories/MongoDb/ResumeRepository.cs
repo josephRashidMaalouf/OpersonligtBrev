@@ -19,7 +19,7 @@ public class ResumeRepository(string collectionName, string connectionString) : 
         return await resumes.ToListAsync();
     }
 
-    public async Task<IEnumerable<Resume>> GetAllByUserEmailasync(string userEmail)
+    public async Task<IEnumerable<Resume>> GetAllByUserEmailAsync(string userEmail)
     {
         var collection = ConnectToMongo<Resume>();
 

@@ -23,7 +23,7 @@ namespace JobSeekerAssistant.Api.Controllers
             return Results.Ok(resumes);
         }
 
-        [HttpGet("all/{userEmai}")]
+        [HttpGet("user/{userEmail}")]
         [Authorize]
         public async Task<IResult> GetAllByUserEmailAsync(string userEmail)
         {

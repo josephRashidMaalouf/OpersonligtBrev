@@ -22,7 +22,7 @@ public class LetterService(IHttpClientFactory httpClientFactory) : ILetterServic
 
     public async Task<IEnumerable<LetterModel>> GetAllByUserEmailAsync(string email)
     {
-        var response = await _httpClient.GetAsync($"Letter/all/{email}");
+        var response = await _httpClient.GetAsync($"Letter/user/{email}");
 
         if (response.IsSuccessStatusCode is false)
             return new List<LetterModel>();
