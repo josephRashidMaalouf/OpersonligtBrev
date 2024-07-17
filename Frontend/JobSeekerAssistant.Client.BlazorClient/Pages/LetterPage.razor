@@ -3,27 +3,7 @@
 @inject ILetterService LetterService
 @inject IAccountManagement AuthenticationStateProvider
 
-<BootStrapTextArea
-    Id="about-company"
-    Placeholder="Klistra in företagets 'om oss' text här"
-    AdditionalClasses="mb-3"/>
-<BootStrapTextArea Id="work-description"
-                   Placeholder="Klistra in annonens arbetsbeskrivning här"
-                   AdditionalClasses="mb-3" />
-<InputTextFloating Id="language"
-                   Placeholder="Språk"
-                   AdditionalClasses="mb-3" />
-<Button Color="Colors.Blue"
-          Type="@ButtonType.Button"
-          AdditionalClasses="mb-3">Generera personligt brev!</Button>
 
-<BootStrapTextArea Id="letter"
-                   Placeholder="Ditt personliga brev kommer synas här"
-                   Rows="10"
-                   AdditionalClasses="mb-3" />
-<Button Color="Colors.Green"
-          Type="@ButtonType.Button"
-          AdditionalClasses="mb-3">Spara</Button>
 
 @code {
     

@@ -1,7 +1,7 @@
 ﻿using JobSeekerAssistant.Client.Application.Interfaces;
 using JobSeekerAssistant.Client.Domain.Models;
-using JobSeekerAssistant.Domain.Dtos;
 using System.Net.Http.Json;
+using JobSeekerAssistant.Client.Domain.Dtos;
 
 namespace JobSeekerAssistant.Client.Infrastructure.Services;
 

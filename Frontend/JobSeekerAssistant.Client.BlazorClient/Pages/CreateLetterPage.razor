@@ -1,0 +1,110 @@
+﻿@page "/create-letter"
+@using System.Text.Json
+@inject IResumeService ResumeService
+@inject ILetterService LetterService
+@inject IAccountManagement AuthenticationStateProvider
+
+
+<InputTextFloating Id="company-name"
+                   Placeholder="Företagets namn"
+                   AdditionalClasses="mb-3"
+                   BindValue="@PromptRequestDto.JobDto.CompanyName"
+                   BindValueChanged="OnCompanyNameChanged" />
+<BootStrapTextArea Id="about-company"
+                   Placeholder="Klistra in företagets 'om oss' text här"
+                   AdditionalClasses="mb-3"
+                   BindValue="@PromptRequestDto.JobDto.About"
+                   BindValueChanged="OnAboutChanged"
+                   />
+<BootStrapTextArea Id="work-description"
+                   Placeholder="Klistra in annonens arbetsbeskrivning här"
+                   AdditionalClasses="mb-3"
+                   BindValue="@PromptRequestDto.JobDto.JobDescription"
+                   BindValueChanged="OnDescriptionChanged" />
+<InputTextFloating Id="language"
+                   Placeholder="Språk"
+                   AdditionalClasses="mb-3"
+                   BindValue="@PromptRequestDto.Language"
+                   BindValueChanged="OnLanguageChanged" />
+<Button Color="Colors.Blue"
+        Type="@ButtonType.Button"
+        AdditionalClasses="mb-3"
+        OnClick="OnGenerate">
+    Generera personligt brev!
+</Button>
+
+<BootStrapTextArea Id="letter"
+                   Placeholder="Ditt personliga brev kommer synas här"
+                   Rows="10"
+                   AdditionalClasses="mb-3" 
+                   BindValue="@Letter.Text"
+                   BindValueChanged="OnLetterChanged"/>
+<Button Color="Colors.Green"
+        Type="@ButtonType.Button"
+        AdditionalClasses="mb-3"
+        OnClick="OnSave">
+    Spara ändringar
+</Button>
+
+@code {
+    public PromptRequestDto PromptRequestDto { get; set; } = new();
+    private string UserEmail { get; set; }
+    private string ResumeId { get; set; }
+    private LetterModel Letter { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
+
+        var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+
+        if (resumes.Any())
+            ResumeId = resumes.First().Id;
+        
+
+    }
+
+    private async Task OnGenerate()
+    {
+        var letter = await LetterService.GenerateLetterAsync(ResumeId, PromptRequestDto);
+
+        
+
+        if (letter is not null)
+        {
+            Letter = letter;
+            letter.UserEmail = UserEmail;
+        }
+    }
+
+    private async Task OnSave()
+    {
+
+        var json = JsonSerializer.Serialize(Letter);
+        Console.WriteLine(json);
+        await LetterService.UpdateAsync(Letter.Id, Letter);
+    }
+
+    private void OnCompanyNameChanged(string newValue)
+    {
+        PromptRequestDto.JobDto.CompanyName = newValue;
+    }
+    private void OnAboutChanged(string newValue)
+    {
+        PromptRequestDto.JobDto.About = newValue;
+    }
+    private void OnDescriptionChanged(string newValue)
+    {
+        PromptRequestDto.JobDto.JobDescription = newValue;
+    }
+    private void OnLanguageChanged(string newValue)
+    {
+        PromptRequestDto.Language = newValue;
+    }
+    private void OnLetterChanged(string newValue)
+    {
+        Letter.Text = newValue;
+    }
+}

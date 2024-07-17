@@ -1,5 +1,5 @@
-﻿using JobSeekerAssistant.Client.Domain.Models;
-using JobSeekerAssistant.Domain.Dtos;
+﻿using JobSeekerAssistant.Client.Domain.Dtos;
+using JobSeekerAssistant.Client.Domain.Models;
 
 namespace JobSeekerAssistant.Client.Application.Interfaces;
 

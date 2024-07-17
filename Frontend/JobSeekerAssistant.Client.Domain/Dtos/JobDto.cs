@@ -1,4 +1,4 @@
-﻿namespace JobSeekerAssistant.Domain.Dtos;
+﻿namespace JobSeekerAssistant.Client.Domain.Dtos;
 
 public class JobDto
 {
