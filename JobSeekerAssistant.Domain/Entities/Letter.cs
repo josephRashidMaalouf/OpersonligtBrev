@@ -11,5 +11,6 @@ public class Letter : IEntity<string>
     public string UserId { get; set; }
     public string UserEmail { get; set; }
     public string Text { get; set; }
+    public string Title { get; set; }
 
 }

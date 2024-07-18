@@ -1,5 +1,14 @@
 ﻿@page "/my-account"
-<h3>MyAccount</h3>
+<PageTitle>BrevProffsen</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        Mitt konto
+    </Authorized>
+    <NotAuthorized>
+        404 not found
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     

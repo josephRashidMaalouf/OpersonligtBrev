@@ -2,9 +2,36 @@
 @inject IResumeService ResumeService
 @inject ILetterService LetterService
 @inject IAccountManagement AuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
-
+<PageTitle>BrevProffsen</PageTitle>
+<AuthorizeView>
+    <Authorized>
+        mina brev
+    </Authorized>
+    <NotAuthorized>
+        404 not found
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        var isAuth = await AuthenticationStateProvider.CheckAuthenticatedAsync();
+
+        if (isAuth)
+        {
+            
+        }
+        else
+        {
+            NavigationManager.NavigateTo("./");
+        }
+
+
+
+
+    }
 }

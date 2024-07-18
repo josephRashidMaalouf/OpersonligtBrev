@@ -1,43 +1,54 @@
 ﻿@page "/my-resume"
-@using System.Text.Json
 @inject IResumeService ResumeService
 @inject IAccountManagement AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<PageTitle>BrevProffsen</PageTitle>
 
 
-<InputTextFloating Id="resume-name"
-                   Placeholder="Ditt namn"
-                   BindValue="@Resume.Name"
-                   BindValueChanged="@OnResumeNameChanged"
-                   AdditionalClasses="mb-3" />
+<AuthorizeView>
+    <Authorized>
+        <div class="container">
+            <InputTextFloating Id="resume-name"
+                               Placeholder="Ditt namn"
+                               BindValue="@Resume.Name"
+                               BindValueChanged="@OnResumeNameChanged"
+                               AdditionalClasses="mb-3" />
 
-<BootStrapTextArea Id="about-me"
-                   Placeholder="Beskriv dig själv kortfattat..."
-                   Rows="4"
-                   BindValue="@Resume.AboutMe"
-                   BindValueChanged="OnAboutMeChanged"
-                   AdditionalClasses="mb-3"></BootStrapTextArea>
+            <BootStrapTextArea Id="about-me"
+                               Placeholder="Beskriv dig själv kortfattat..."
+                               Rows="4"
+                               BindValue="@Resume.AboutMe"
+                               BindValueChanged="OnAboutMeChanged"
+                               AdditionalClasses="mb-3"></BootStrapTextArea>
 
 
 
 
-<ListCreater PlaceHolder="Språk"
-             ListItems="@Resume.Languages"
-             ListItemChanged="OnLanguagesChanged"
-             Id="lang"></ListCreater>
-<ListCreater PlaceHolder="Färdigheter"
-             ListItems="@Resume.Skills"
-             ListItemChanged="OnSkillsChanged"
-             Id="skill"></ListCreater>
+            <ListCreater PlaceHolder="Språk"
+                         ListItems="@Resume.Languages"
+                         ListItemChanged="OnLanguagesChanged"
+                         Id="lang"></ListCreater>
+            <ListCreater PlaceHolder="Färdigheter"
+                         ListItems="@Resume.Skills"
+                         ListItemChanged="OnSkillsChanged"
+                         Id="skill"></ListCreater>
 
-<WorkItemForm WorkItems="@Resume.WorkItems" 
-              ListItemChanged="@OnWorkItemsChanged"/>
+            <WorkItemForm WorkItems="@Resume.WorkItems" 
+                          ListItemChanged="@OnWorkItemsChanged"/>
 
-<EducationItemForm EducationItems="@Resume.EducationItems"
-                   ListItemChanged="@OnEducationItemsChanged"/>
+            <EducationItemForm EducationItems="@Resume.EducationItems"
+                               ListItemChanged="@OnEducationItemsChanged"/>
 
-<Button Color="@Colors.Green" 
-        Type="@ButtonType.Button"
-        OnClick="@OnSaveResume">Spara</Button>
+            <Button Color="@Colors.Green" 
+                    Type="@ButtonType.Button"
+                    OnClick="@OnSaveResume">Spara</Button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        404 not found
+    </NotAuthorized>
+</AuthorizeView>
 
 
 
@@ -49,12 +60,23 @@
     {
        await base.OnInitializedAsync();
 
-       UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
+       var isAuth = await AuthenticationStateProvider.CheckAuthenticatedAsync();
 
-       var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+       if (isAuth)
+       {
+           UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
 
-       if(resumes.Any())
-           Resume = resumes.First();
+           var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+
+           if(resumes.Any())
+               Resume = resumes.First();
+       }
+       else
+       {
+           NavigationManager.NavigateTo("./");
+       }
+
+       
     }
 
 
@@ -64,8 +86,7 @@
         {
             Resume.UserEmail = UserEmail;
 
-            var json = JsonSerializer.Serialize(Resume);
-            Console.WriteLine(json);
+           
 
             await ResumeService.PostAsync(Resume);
             

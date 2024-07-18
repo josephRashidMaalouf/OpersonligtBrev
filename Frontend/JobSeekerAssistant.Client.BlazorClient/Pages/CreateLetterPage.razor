@@ -1,50 +1,65 @@
 ﻿@page "/create-letter"
-@using System.Text.Json
 @inject IResumeService ResumeService
 @inject ILetterService LetterService
 @inject IAccountManagement AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+<PageTitle>BrevProffsen</PageTitle>
 
+<AuthorizeView>
+    <Authorized>
+        <div class="container">
+            <div class="d-flex justify-content-end">
+                <Button Type="@ButtonType.Button"
+                        OnClick="OnGoToLetters">
+                    Mina brev
+                </Button>
+            </div>
+            <hr />
+            <InputTextFloating Id="company-name"
+                               Placeholder="Företagets namn"
+                               AdditionalClasses="mb-3"
+                               BindValue="@PromptRequestDto.JobDto.CompanyName"
+                               BindValueChanged="OnCompanyNameChanged" />
+            <BootStrapTextArea Id="about-company"
+                               Placeholder="Klistra in företagets 'om oss' text här"
+                               AdditionalClasses="mb-3"
+                               BindValue="@PromptRequestDto.JobDto.About"
+                               BindValueChanged="OnAboutChanged" />
+            <BootStrapTextArea Id="work-description"
+                               Placeholder="Klistra in annonens arbetsbeskrivning här"
+                               AdditionalClasses="mb-3"
+                               BindValue="@PromptRequestDto.JobDto.JobDescription"
+                               BindValueChanged="OnDescriptionChanged" />
+            <InputTextFloating Id="language"
+                               Placeholder="Språk"
+                               AdditionalClasses="mb-3"
+                               BindValue="@PromptRequestDto.Language"
+                               BindValueChanged="OnLanguageChanged" />
+            <Button Color="Colors.Blue"
+                    Type="@ButtonType.Button"
+                    AdditionalClasses="mb-3"
+                    OnClick="OnGenerate">
+                Generera personligt brev!
+            </Button>
 
-<InputTextFloating Id="company-name"
-                   Placeholder="Företagets namn"
-                   AdditionalClasses="mb-3"
-                   BindValue="@PromptRequestDto.JobDto.CompanyName"
-                   BindValueChanged="OnCompanyNameChanged" />
-<BootStrapTextArea Id="about-company"
-                   Placeholder="Klistra in företagets 'om oss' text här"
-                   AdditionalClasses="mb-3"
-                   BindValue="@PromptRequestDto.JobDto.About"
-                   BindValueChanged="OnAboutChanged"
-                   />
-<BootStrapTextArea Id="work-description"
-                   Placeholder="Klistra in annonens arbetsbeskrivning här"
-                   AdditionalClasses="mb-3"
-                   BindValue="@PromptRequestDto.JobDto.JobDescription"
-                   BindValueChanged="OnDescriptionChanged" />
-<InputTextFloating Id="language"
-                   Placeholder="Språk"
-                   AdditionalClasses="mb-3"
-                   BindValue="@PromptRequestDto.Language"
-                   BindValueChanged="OnLanguageChanged" />
-<Button Color="Colors.Blue"
-        Type="@ButtonType.Button"
-        AdditionalClasses="mb-3"
-        OnClick="OnGenerate">
-    Generera personligt brev!
-</Button>
-
-<BootStrapTextArea Id="letter"
-                   Placeholder="Ditt personliga brev kommer synas här"
-                   Rows="10"
-                   AdditionalClasses="mb-3" 
-                   BindValue="@Letter.Text"
-                   BindValueChanged="OnLetterChanged"/>
-<Button Color="Colors.Green"
-        Type="@ButtonType.Button"
-        AdditionalClasses="mb-3"
-        OnClick="OnSave">
-    Spara ändringar
-</Button>
+            <BootStrapTextArea Id="letter"
+                               Placeholder="Ditt personliga brev kommer synas här"
+                               Rows="10"
+                               AdditionalClasses="mb-3"
+                               BindValue="@Letter.Text"
+                               BindValueChanged="OnLetterChanged" />
+            <Button Color="Colors.Green"
+                    Type="@ButtonType.Button"
+                    AdditionalClasses="mb-3"
+                    OnClick="OnSave">
+                Spara ändringar
+            </Button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        404 not found
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     public PromptRequestDto PromptRequestDto { get; set; } = new();
@@ -56,14 +71,30 @@
     {
         await base.OnInitializedAsync();
 
-        UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
+        var isAuth = await AuthenticationStateProvider.CheckAuthenticatedAsync();
 
-        var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+        if (isAuth)
+        {
+            UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
 
-        if (resumes.Any())
-            ResumeId = resumes.First().Id;
+            var resumes = await ResumeService.GetAllByUserEmailAsync(UserEmail);
+
+            if (resumes.Any())
+                ResumeId = resumes.First().Id;
+        }
+        else
+        {
+            NavigationManager.NavigateTo("./");
+        }
+
+        
         
 
+    }
+
+    private async Task OnGoToLetters()
+    {
+        NavigationManager.NavigateTo("./my-letters");
     }
 
     private async Task OnGenerate()
@@ -76,14 +107,12 @@
         {
             Letter = letter;
             letter.UserEmail = UserEmail;
+            letter.Title = $"{PromptRequestDto.JobDto.CompanyName} - {DateTime.UtcNow}";
         }
     }
 
     private async Task OnSave()
     {
-
-        var json = JsonSerializer.Serialize(Letter);
-        Console.WriteLine(json);
         await LetterService.UpdateAsync(Letter.Id, Letter);
     }
 
