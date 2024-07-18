@@ -1,5 +1,4 @@
 ﻿@page "/my-letters"
-@inject IResumeService ResumeService
 @inject ILetterService LetterService
 @inject IAccountManagement AuthenticationStateProvider
 @inject NavigationManager NavigationManager
@@ -8,7 +7,20 @@
 <AuthorizeView>
     <Authorized>
         <div class="container">
-
+            <div class="row">
+                <div class="col mb-3">
+                    <ul class="list-group">
+                        <Virtualize Context="letter" Items="Letters">
+                            <li class="list-group-item">
+                                @letter.Title
+                            </li>
+                        </Virtualize>
+                    </ul>
+                </div>
+                <div class="col mb-3">
+                    <BootStrapTextArea Rows="12"/>
+                </div>
+            </div>
         </div>
         
         
@@ -20,6 +32,11 @@
 </AuthorizeView>
 
 @code {
+
+    public List<LetterModel> Letters { get; set; } = new();
+    private string UserEmail { get; set; } = string.Empty;
+    private string activeLetterContent = string.Empty;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -28,7 +45,10 @@
 
         if (isAuth)
         {
-            
+            UserEmail = await AuthenticationStateProvider.GetUserEmailAsync();
+
+            var letters = await LetterService.GetAllByUserEmailAsync(UserEmail);
+            Letters.AddRange(letters);
         }
         else
         {
