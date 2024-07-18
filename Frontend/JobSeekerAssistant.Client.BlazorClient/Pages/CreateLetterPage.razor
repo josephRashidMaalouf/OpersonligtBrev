@@ -107,7 +107,9 @@
         {
             Letter = letter;
             letter.UserEmail = UserEmail;
-            letter.Title = $"{PromptRequestDto.JobDto.CompanyName} - {DateTime.UtcNow}";
+            letter.Title = $"{PromptRequestDto.JobDto.CompanyName} - {DateTime.UtcNow.ToShortDateString()}";
+            await LetterService.UpdateAsync(Letter.Id, Letter);
+
         }
     }
 
