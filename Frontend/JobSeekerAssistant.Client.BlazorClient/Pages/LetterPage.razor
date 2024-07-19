@@ -18,9 +18,13 @@
                 <div class="col mb-3">
                     <ul class="list-group">
                         <Virtualize Context="letter" Items="Letters">
-                            <li class="list-group-item @(letter == _selectedLetter ? "list-group-item-primary" : "")"
+                            <li class="list-group-item @(letter == _selectedLetter ? "list-group-item-primary" : "") d-flex justify-content-between align-items-center"
                                 @onclick="() => OnLetterSelected(letter)">
-                                @letter.Title
+                                <p class="mb-0">@letter.Title</p>
+                                <Button Color="Colors.Red"
+                                        OnClick="async () => await RemoveItem(letter)">
+                                    <i class="fa-solid fa-trash"/>
+                                </Button>
                             </li>
                         </Virtualize>
                     </ul>
@@ -90,7 +94,15 @@
 
     private async Task OnSave()
     {
-        await LetterService.UpdateAsync(_selectedLetter.Id, _selectedLetter);
+        if(_selectedLetter.Id != "")
+            await LetterService.UpdateAsync(_selectedLetter.Id, _selectedLetter);
+    }
+
+    private async Task RemoveItem(LetterModel item)
+    {
+        await LetterService.DeleteAsync(item.Id);
+        Letters.Remove(item);
+        _selectedLetter = new();
     }
     
 }
