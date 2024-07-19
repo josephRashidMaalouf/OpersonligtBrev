@@ -11,14 +11,17 @@
                 <div class="col mb-3">
                     <ul class="list-group">
                         <Virtualize Context="letter" Items="Letters">
-                            <li class="list-group-item">
+                            <li class="list-group-item @_additionalListClass"
+                            @onclick="() => OnLetterSelected(letter)">
                                 @letter.Title
                             </li>
                         </Virtualize>
                     </ul>
                 </div>
                 <div class="col mb-3">
-                    <BootStrapTextArea Rows="12"/>
+                    <BootStrapTextArea 
+                        Rows="12" 
+                        BindValue="@_selectedLetter.Text"/>
                 </div>
             </div>
         </div>
@@ -35,7 +38,8 @@
 
     public List<LetterModel> Letters { get; set; } = new();
     private string UserEmail { get; set; } = string.Empty;
-    private string activeLetterContent = string.Empty;
+    private LetterModel _selectedLetter = new();
+    private string _additionalListClass = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,8 +59,14 @@
             NavigationManager.NavigateTo("./");
         }
 
-
-
-
     }
+
+    private void OnLetterSelected(LetterModel letter)
+    {
+        _selectedLetter = letter;
+    }
+
+    
+
+    
 }
