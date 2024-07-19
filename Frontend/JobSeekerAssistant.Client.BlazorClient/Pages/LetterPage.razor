@@ -7,22 +7,33 @@
 <AuthorizeView>
     <Authorized>
         <div class="container">
+            <div class="d-flex justify-content-end">
+                <Button Type="@ButtonType.Button"
+                        OnClick="OnGoToGenerator">
+                    Tillbaka
+                </Button>
+            </div>
+            <hr />
             <div class="row">
                 <div class="col mb-3">
                     <ul class="list-group">
                         <Virtualize Context="letter" Items="Letters">
-                            <li class="list-group-item @_additionalListClass"
-                            @onclick="() => OnLetterSelected(letter)">
+                            <li class="list-group-item @(letter == _selectedLetter ? "list-group-item-primary" : "")"
+                                @onclick="() => OnLetterSelected(letter)">
                                 @letter.Title
                             </li>
                         </Virtualize>
                     </ul>
                 </div>
                 <div class="col mb-3">
-                    <BootStrapTextArea 
-                        Rows="12" 
-                        BindValue="@_selectedLetter.Text"/>
+                    <BootStrapTextArea
+                        Rows="12"
+                        BindValue="@_selectedLetter.Text"
+                        BindValueChanged="OnLetterContentChanged"/>
                 </div>
+            </div>
+            <div class="row">
+                <Button OnClick="OnSave">Spara ändringar</Button>
             </div>
         </div>
         
@@ -66,7 +77,20 @@
         _selectedLetter = letter;
     }
 
-    
 
+    private async Task OnGoToGenerator()
+    {
+        NavigationManager.NavigateTo("./create-letter");
+    }
+
+    private async Task OnLetterContentChanged(string newValue)
+    {
+        _selectedLetter.Text = newValue;
+    }
+
+    private async Task OnSave()
+    {
+        await LetterService.UpdateAsync(_selectedLetter.Id, _selectedLetter);
+    }
     
 }
