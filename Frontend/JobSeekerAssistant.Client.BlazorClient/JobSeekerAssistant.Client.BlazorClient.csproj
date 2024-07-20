@@ -33,8 +33,10 @@
     <_ContentIncludedByDefault Remove="Components\InputTextFloating.razor" />
     <_ContentIncludedByDefault Remove="Components\ListCreater.razor" />
     <_ContentIncludedByDefault Remove="Components\NavBar.razor" />
+    <_ContentIncludedByDefault Remove="Components\RegisterForm.razor" />
     <_ContentIncludedByDefault Remove="Components\WorkItemForm.razor" />
     <_ContentIncludedByDefault Remove="Pages\LetterPage.razor" />
+    <_ContentIncludedByDefault Remove="Pages\Terms.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,6 +65,14 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Components\EducationItemForm.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Components\RegisterForm.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Terms.razor" />
   </ItemGroup>
 
 </Project>

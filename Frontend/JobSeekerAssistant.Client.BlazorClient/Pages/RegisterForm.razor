@@ -1,0 +1,181 @@
+﻿@page "/register"
+
+@inject IAccountManagement AccountManagement
+@inject NavigationManager NavigationManager
+<PageTitle>OPersonligtBrev</PageTitle>
+
+<div class="card p-3 mb-3">
+    <h4>Skapa ett konto</h4>
+    <EditForm Model="RegisterDto" OnValidSubmit="@DoRegisterAsync">
+        <InputTextFloating Id="email"
+                           Placeholder="Användarnamn"
+                           Type="InputType.Email"
+                           AdditionalClasses="mb-3"
+                           BindValue="@RegisterDto.Email"
+                           BindValueChanged="@OnEmailInputChanged"/>
+
+        <InputTextFloating Id="password"
+                           Placeholder="Lösenord"
+                           Type="InputType.Password"
+                           AdditionalClasses="mb-3"
+                           BindValue="@RegisterDto.Password"
+                           BindValueChanged="@OnPasswordInputChanged"/>
+
+        <InputTextFloating Id="confirmPassword"
+                           Placeholder="Bekräfta lösenord"
+                           Type="InputType.Password"
+                           AdditionalClasses="mb-3"
+                           BindValue="@ConfirmPassword"
+                           BindValueChanged="@OnConfirmPasswordInputChanged"/>
+        <div class="mb-3">
+            <label>Jag har läst och godkänt OPersonligtBrevs <a href="./policy" target="_blank">integritetspolicy och användarvillkor </a></label>
+            <InputCheckbox @bind-Value="@AcceptTerms"/>
+        </div>
+        <Button Type="@ButtonType.Submit"
+                Color="Colors.Blue"
+                AdditionalClasses="mb-3">
+            Registrera
+        </Button>
+        @if (errors)
+        {
+            @foreach (var error in errorList)
+            {
+                <div class="alert alert-danger mb-3">@error</div>
+            }
+        }
+    </EditForm>
+</div>
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if(await AccountManagement.CheckAuthenticatedAsync())
+            NavigationManager.NavigateTo("/");
+
+    }
+
+    public RegisterDto RegisterDto { get; set; } = new();
+    private string ConfirmPassword { get; set; } = "";
+    private bool AcceptTerms { get; set; } = false;
+
+
+    private bool success, errors;
+    private string[] errorList = [];
+
+    public async Task DoRegisterAsync()
+    {
+        success = errors = false;
+        errorList = [];
+
+        if (string.IsNullOrWhiteSpace(RegisterDto.Email))
+        {
+            errors = true;
+            errorList = ["Ange din mailadress."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(RegisterDto.Password))
+        {
+            errors = true;
+            errorList = ["Du behöver välja ett lösenord."];
+
+            return;
+        }
+
+        if (CheckIfPasswordSecureEnough(RegisterDto.Password) == false)
+        {
+            errors = true;
+            errorList = ["Ditt lösenord behöver vara minst 8 tecken långt och innehålla minst en stor bokstav, en siffra och ett specialtecken."];
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(ConfirmPassword))
+        {
+            errors = true;
+            errorList = ["Bekräfta ditt lösenord."];
+
+            return;
+        }
+
+
+        if (RegisterDto.Password != ConfirmPassword)
+        {
+            errors = true;
+            errorList = ["Lösenorden stämmer inte överens."];
+
+            return;
+        }
+
+        if (AcceptTerms == false)
+        {
+            errors = true;
+            errorList = ["Du behöver acceptera integritetspolicyn och användarvillkoren för att bli medlem."];
+
+            return;
+        }
+        
+
+        var result = await AccountManagement.RegisterAsync(RegisterDto.Email, RegisterDto.Password);
+
+        if (result.Succeeded)
+        {
+            success = true;
+            RegisterDto.Email = RegisterDto.Password = ConfirmPassword = string.Empty;
+        }
+        else
+        {
+            errors = true;
+            errorList = result.ErrorList;
+        }
+    }
+
+    private bool CheckIfPasswordSecureEnough(string password)
+    {
+        bool hasUpperChar = false;
+        bool hasSpecialChar = false;
+        bool hasNumber = false;
+        bool isEightOrMore = password.Length >= 8;
+
+        if (isEightOrMore == false)
+            return false;
+
+        foreach (var character in password)
+        {
+            
+
+            if (char.IsDigit(character))
+                hasNumber = true;
+
+            if (char.IsUpper(character))
+                hasUpperChar = true;
+
+            if (char.IsLetterOrDigit(character) == false)
+                hasSpecialChar = true;
+
+            if (hasUpperChar && hasSpecialChar && hasNumber)
+                break;
+        }
+
+        return hasNumber && hasSpecialChar && hasUpperChar && isEightOrMore;
+    }
+
+    private async Task OnEmailInputChanged(string newValue)
+    {
+        RegisterDto.Email = newValue;
+    }
+
+
+    private async Task OnPasswordInputChanged(string newValue)
+    {
+        RegisterDto.Password = newValue;
+    }
+    private async Task OnConfirmPasswordInputChanged(string newValue)
+    {
+        ConfirmPassword = newValue;
+    }
+
+}
