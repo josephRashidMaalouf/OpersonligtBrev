@@ -22,6 +22,7 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 | /register    | POST   | RegisterDto |            | 200, 400      |
 | /user/roles  | GET    | Cookie      | UserRole[] | 200, 404      |
 | /manage/info | GET    | Cookie      | ?          | 200, 404      |
+| /delete      | DELETE | Cookie      | ?          | 200, 404      |
 
 ### RESUME
 

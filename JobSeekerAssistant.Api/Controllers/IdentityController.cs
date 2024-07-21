@@ -48,4 +48,28 @@ public class IdentityController : ControllerBase
         return Results.Unauthorized();
 
     }
+    [HttpDelete("delete")]
+    [Authorize]
+    public async Task<IResult> DeleteAsync(UserManager<User> userManager)
+    {
+
+        var claimsPrincipal = HttpContext.User;
+        if (claimsPrincipal.Identity is not null && claimsPrincipal.Identity.IsAuthenticated)
+        {
+            var email = claimsPrincipal.FindFirstValue(ClaimTypes.Email);
+
+            if (email is not null)
+            {
+                var user = await userManager.FindByEmailAsync(email);
+                if (user is not null)
+                {
+                    await userManager.DeleteAsync(user);
+                    return Results.Ok();
+                }
+            }
+        }
+
+        return Results.Unauthorized();
+
+    }
 }
