@@ -1,10 +1,17 @@
 ﻿@page "/my-account"
+@inject IAccountManagement AuthenticationStateManager
+@inject NavigationManager NavigationManager
+
 <PageTitle>OPersonligtBrev</PageTitle>
 
 
 <AuthorizeView>
     <Authorized>
-        Mitt konto
+        <div class="container">
+            <Button Color="@Colors.Red" 
+                    Type="@ButtonType.Button"
+                    OnClick="OnDeleteAccount">Radera mitt konto</Button>
+        </div>
     </Authorized>
     <NotAuthorized>
         404 not found
@@ -12,5 +19,19 @@
 </AuthorizeView>
 
 @code {
-    
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        if (await AuthenticationStateManager.CheckAuthenticatedAsync() is false)
+            NavigationManager.NavigateTo("/");
+
+    }
+
+    private async Task OnDeleteAccount()
+    {
+        var success = await AuthenticationStateManager.DeleteAsync();
+
+        if(success)
+            NavigationManager.NavigateTo("/");
+    }
 }
