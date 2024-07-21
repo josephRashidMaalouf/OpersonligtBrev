@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var sqlConnectionString = builder.Configuration["Database:Local:Sql"];
-var mongoConnectionString = builder.Configuration["Database:Local:Mongo"];
+var mongoConnectionString = builder.Configuration["Database:Cloud:Mongo"];
 var gptKey = builder.Configuration["GptKey"];
 
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
