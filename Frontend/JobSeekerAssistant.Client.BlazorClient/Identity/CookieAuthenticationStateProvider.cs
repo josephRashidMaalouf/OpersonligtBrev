@@ -175,6 +175,14 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
         return userInfo.Email;
     }
 
+    public async Task<bool> DeleteAsync()
+    {
+        var response = await _httpClient.DeleteAsync("Identity/delete");
+        NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+        return response.IsSuccessStatusCode; ;
+    }
+
     public async Task LogoutAsync()
     {
         const string Empty = "{}";
@@ -188,4 +196,6 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
         await GetAuthenticationStateAsync();
         return _authenticated;
     }
+
+  
 }

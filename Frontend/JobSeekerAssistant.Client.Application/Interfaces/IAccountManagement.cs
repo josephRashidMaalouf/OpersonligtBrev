@@ -13,4 +13,6 @@ public interface IAccountManagement
     public Task<bool> CheckAuthenticatedAsync();
 
     Task<string> GetUserEmailAsync();
+
+    Task<bool> DeleteAsync();
 }
