@@ -67,6 +67,7 @@
     private string UserEmail { get; set; }
     private string ResumeId { get; set; }
     private LetterModel Letter { get; set; } = new();
+    private bool LetterLoading { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -100,6 +101,11 @@
 
     private async Task OnGenerate()
     {
+        if (LetterLoading)
+            return;
+
+        LetterLoading = true;
+        Letter.Text = "Vänligen vänta medans ditt opersonliga brev skapas...";
         var letter = await LetterService.GenerateLetterAsync(ResumeId, PromptRequestDto);
 
         
@@ -110,6 +116,7 @@
             letter.UserEmail = UserEmail;
             letter.Title = $"{PromptRequestDto.JobDto.CompanyName} - {DateTime.UtcNow.ToShortDateString()}";
             await LetterService.UpdateAsync(Letter.Id, Letter);
+            LetterLoading = false;
 
         }
     }
