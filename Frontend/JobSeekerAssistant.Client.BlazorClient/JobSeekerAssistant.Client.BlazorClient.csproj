@@ -36,6 +36,7 @@
     <_ContentIncludedByDefault Remove="Components\RegisterForm.razor" />
     <_ContentIncludedByDefault Remove="Components\WorkItemForm.razor" />
     <_ContentIncludedByDefault Remove="Pages\LetterPage.razor" />
+    <_ContentIncludedByDefault Remove="Pages\LogoutPage.razor" />
     <_ContentIncludedByDefault Remove="Pages\Terms.razor" />
   </ItemGroup>
 
@@ -73,6 +74,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Terms.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\LogoutPage.razor" />
   </ItemGroup>
 
 </Project>
