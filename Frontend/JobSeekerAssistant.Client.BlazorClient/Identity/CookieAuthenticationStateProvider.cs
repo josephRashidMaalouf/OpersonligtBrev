@@ -29,7 +29,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
 
     public async Task<AuthResponse> RegisterAsync(string email, string password)
     {
-        string[] defaultDetail = ["An unknown error prevented registration from succeeding."];
+        string[] defaultDetail = ["Din registrering misslyckades på grund av ett oväntat fel."];
 
         try
         {
@@ -103,7 +103,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
         return new AuthResponse
         {
             Succeeded = false,
-            ErrorList = ["Invalid email and/or password."]
+            ErrorList = ["Felaktigt användarnamn/lösenord."]
         };
     }
 
