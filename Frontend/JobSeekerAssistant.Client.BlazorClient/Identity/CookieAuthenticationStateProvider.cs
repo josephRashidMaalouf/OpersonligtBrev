@@ -34,7 +34,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
         if(result.IsSuccessStatusCode)
         {
 
-            var content = result.Content.ReadFromJsonAsync<string>();
+            var content = await result.Content.ReadAsStringAsync();
 
             Console.WriteLine(content);
         }
