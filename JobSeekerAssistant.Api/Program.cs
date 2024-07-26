@@ -30,7 +30,7 @@ var secretClient = new SecretClient(new Uri(kvUrl), new DefaultAzureCredential()
 var sqlConnectionString = secretClient.GetSecret("Database-Cloud-Sql").Value.Value;
 var mongoConnectionString = secretClient.GetSecret("Database-Cloud-Mongo").Value.Value;
 var gptKey = secretClient.GetSecret("GptKey").Value.Value;
-
+var test = secretClient.GetSecret("Test").Value.Value;
 
 
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
@@ -85,7 +85,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("wasm");
 
-app.MapGet("/test", () => "Hello World!");
+app.MapGet("/test", () => $"Hello World! Här kommer en hemlis: {test}");
 
 app.Run();
 
