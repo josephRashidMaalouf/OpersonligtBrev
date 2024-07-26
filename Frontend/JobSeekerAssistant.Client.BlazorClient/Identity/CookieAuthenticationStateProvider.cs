@@ -37,6 +37,7 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
             var content = await result.Content.ReadAsStringAsync();
 
             Console.WriteLine(content);
+            return;
         }
 
         Console.WriteLine("Nope");
