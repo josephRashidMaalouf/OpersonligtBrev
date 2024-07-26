@@ -28,8 +28,8 @@ var kvUrl = builder.Configuration["AzureKeyVault"];
 var secretClient = new SecretClient(new Uri(kvUrl), new DefaultAzureCredential());
 
 var sqlConnectionString = secretClient.GetSecret("Database-Cloud-Sql").Value.Value;
-var mongoConnectionString = secretClient.GetSecret("Database-Cloud-Mongo").Value.Value; 
-var gptKey = secretClient.GetSecret("GptKey").Value.Value; 
+var mongoConnectionString = secretClient.GetSecret("Database-Cloud-Mongo").Value.Value;
+var gptKey = secretClient.GetSecret("GptKey").Value.Value;
 
 
 
@@ -65,7 +65,7 @@ builder.Services.AddHttpClient("GptApi", options =>
 builder.Services.AddCors(
     options => options.AddPolicy(
         "wasm",
-        policy => policy.WithOrigins("https://localhost:7297", "https://localhost:7137")
+        policy => policy.WithOrigins("https://localhost:7297", "https://localhost:7137", "https://opersonligtbrev-api.azurewebsites.net/", "https://calm-tree-0af52a703.5.azurestaticapps.net")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials()));
