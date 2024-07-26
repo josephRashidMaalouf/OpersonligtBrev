@@ -87,7 +87,7 @@ app.UseCors("wasm");
 
 app.MapGet("/test", () => $"Hello World! Här kommer en hemlis: {test}");
 
-app.Run();
+
 
 app.MapIdentityApi<User>();
 
