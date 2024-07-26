@@ -85,6 +85,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("wasm");
 
+app.MapGet("/test", () => "Hello World!");
+
+app.Run();
 
 app.MapIdentityApi<User>();
 
