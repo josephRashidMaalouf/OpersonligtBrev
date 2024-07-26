@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/94973fc8-03ef-4181-9357-b3fb0bd6202b/resourceGroups/opersonligtbrev/providers/Microsoft.Web/sites/opersonligtbrev-api",
+  "appService.deploySubpath": "JobSeekerAssistant.Api\\bin\\Publish"
+}

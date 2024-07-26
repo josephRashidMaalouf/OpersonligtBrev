@@ -8,6 +8,8 @@ using JobSeekerAssistant.Infrastructure.Repositories.MongoDb;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +20,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var sqlConnectionString = builder.Configuration["Database:Cloud:Sql"];
-var mongoConnectionString = builder.Configuration["Database:Cloud:Mongo"];
-var gptKey = builder.Configuration["GptKey"];
+//var sqlConnectionString = builder.Configuration["Database:Cloud:Sql"];
+//var mongoConnectionString = builder.Configuration["Database:Cloud:Mongo"];
+//var gptKey = builder.Configuration["GptKey"];
+
+var kvUrl = builder.Configuration["AzureKeyVault"];
+var secretClient = new SecretClient(new Uri(kvUrl), new DefaultAzureCredential());
+
+var sqlConnectionString = secretClient.GetSecret("Database-Cloud-Sql").Value.Value;
+var mongoConnectionString = secretClient.GetSecret("Database-Cloud-Mongo").Value.Value; 
+var gptKey = secretClient.GetSecret("GptKey").Value.Value; 
+
+
 
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
 builder.Services.AddAuthorizationBuilder();
