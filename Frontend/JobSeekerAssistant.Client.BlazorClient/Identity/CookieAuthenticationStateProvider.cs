@@ -27,8 +27,26 @@ public class CookieAuthenticationStateProvider : AuthenticationStateProvider, IA
     public CookieAuthenticationStateProvider(IHttpClientFactory httpClientFactory)
         => _httpClient = httpClientFactory.CreateClient("JobSeekerAssistantApi");
 
+    public async Task Test()
+    {
+        var result = await _httpClient.GetAsync("test");
+        
+        if(result.IsSuccessStatusCode)
+        {
+
+            var content = result.Content.ReadFromJsonAsync<string>();
+
+            Console.WriteLine(content);
+        }
+
+        Console.WriteLine("Nope");
+
+        
+    }
+
     public async Task<AuthResponse> RegisterAsync(string email, string password)
     {
+        await Test();
         string[] defaultDetail = ["Din registrering misslyckades på grund av ett oväntat fel."];
 
         try
