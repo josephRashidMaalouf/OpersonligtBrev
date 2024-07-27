@@ -15,14 +15,14 @@ The purpose of this app is to help you manage your job seeking activities. Featu
 
 ### IDENTITY
 
-| PATH         | METHOD | REQUEST     | RESPONSE   | RESPONSE CODE |
-| ------------ | ------ | ----------- | ---------- | ------------- |
-| /login       | POST   | LoginDto    | Cookie     | 200, 404, 400 |
-| /logout      | POST   | {}          |            | 200           |
-| /register    | POST   | RegisterDto |            | 200, 400      |
-| /user/roles  | GET    | Cookie      | UserRole[] | 200, 404      |
-| /manage/info | GET    | Cookie      | ?          | 200, 404      |
-| /delete      | DELETE | Cookie      | ?          | 200, 404      |
+| PATH            | METHOD | REQUEST     | RESPONSE   | RESPONSE CODE |
+| --------------- | ------ | ----------- | ---------- | ------------- |
+| /login          | POST   | LoginDto    | Cookie     | 200, 404, 400 |
+| identity/logout | POST   | {}          |            | 200           |
+| /register       | POST   | RegisterDto |            | 200, 400      |
+| identity/roles  | GET    | Cookie      | UserRole[] | 200, 404      |
+| /manage/info    | GET    | Cookie      | ?          | 200, 404      |
+| identity/delete | DELETE | Cookie      | ?          | 200, 404      |
 
 ### RESUME
 

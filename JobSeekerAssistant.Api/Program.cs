@@ -34,6 +34,18 @@ var test = secretClient.GetSecret("Test").Value.Value;
 
 
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme).AddIdentityCookies();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.Name = "OPersonligtBrev.Identity";
+    options.LoginPath = "/login";
+    options.LogoutPath = "/Identity/Logout";
+    options.AccessDeniedPath = "/";
+});
+
 builder.Services.AddAuthorizationBuilder();
 
 
