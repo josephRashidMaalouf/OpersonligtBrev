@@ -60,6 +60,7 @@ namespace JobSeekerAssistant.Api.Controllers
             if (resume is null)
                 return Results.NotFound($"Resume with id: {resumeId} could not be found");
 
+
             var prompt =
                 await promptService.GeneratePromptForLetterAsync(promptRequestDto.JobDto, resume,
                     promptRequestDto.Language);
@@ -75,8 +76,10 @@ namespace JobSeekerAssistant.Api.Controllers
                 Messages = new GptMessageDto[1] { systemMessage }
             };
 
+
             var response = await _httpClient.PostAsJsonAsync<GptDto>("/v1/chat/completions", gptDto);
 
+            
             var result = await response.Content.ReadFromJsonAsync<GptAnswerDto>();
 
             var message = result.choices[0].message;
