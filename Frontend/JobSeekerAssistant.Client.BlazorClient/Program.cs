@@ -28,7 +28,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddHttpClient(
         "JobSeekerAssistantApi",
-        opt => opt.BaseAddress = new Uri("https://opersonligtbrev-api.azurewebsites.net/"))
+        opt => opt.BaseAddress = new Uri("https://opersonligtbrev-api.azurewebsites.net"))
     .AddHttpMessageHandler<CookieHandler>();
 
 builder.Services.AddServices();
