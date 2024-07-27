@@ -81,7 +81,11 @@ namespace JobSeekerAssistant.Api.Controllers
             {
                 var response = await _httpClient.PostAsJsonAsync<GptDto>("/v1/chat/completions", gptDto);
 
+                response.EnsureSuccessStatusCode();
+
+
                 var result = await response.Content.ReadFromJsonAsync<GptAnswerDto>();
+                
 
                 var message = result.choices[0].message;
 
@@ -91,9 +95,16 @@ namespace JobSeekerAssistant.Api.Controllers
 
                 return Results.Ok(letter);
             }
+            catch (HttpRequestException httpEx)
+            {
+                
+                var letter = new Letter() { Text = "Den opersonliga författaren kunde inte nås. Prova igen senare.", UserId = resume.UserId };
+                return Results.Ok(letter);
+            }
             catch (Exception ex)
             {
-                return Results.NoContent();
+                var letter = new Letter() { Text = "Ett oväntat problem uppstod. Ett personligt brev kunde inte genereras.", UserId = resume.UserId };
+                return Results.Ok(letter);
             }
             
 

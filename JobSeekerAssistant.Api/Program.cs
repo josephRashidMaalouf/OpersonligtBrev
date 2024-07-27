@@ -71,7 +71,7 @@ builder.Services.AddHttpClient("GptApi", options =>
     options.BaseAddress = new Uri("https://api.openai.com");
 }).ConfigureHttpClient(client =>
 {
-    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", builder.Configuration["GptKey"]);
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", gptKey);
 });
 
 builder.Services.AddCors(
