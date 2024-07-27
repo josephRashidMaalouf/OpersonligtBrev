@@ -77,18 +77,25 @@ namespace JobSeekerAssistant.Api.Controllers
             };
 
 
-            var response = await _httpClient.PostAsJsonAsync<GptDto>("/v1/chat/completions", gptDto);
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync<GptDto>("/v1/chat/completions", gptDto);
 
+                var result = await response.Content.ReadFromJsonAsync<GptAnswerDto>();
+
+                var message = result.choices[0].message;
+
+                var letter = new Letter() { Text = message.content, UserId = resume.UserId };
+
+                await _letterService.AddAsync(letter);
+
+                return Results.Ok(letter);
+            }
+            catch (Exception ex)
+            {
+                return Results.NoContent();
+            }
             
-            var result = await response.Content.ReadFromJsonAsync<GptAnswerDto>();
-
-            var message = result.choices[0].message;
-
-            var letter = new Letter() { Text = message.content, UserId = resume.UserId };
-
-            await _letterService.AddAsync(letter);
-
-            return Results.Ok(letter);
 
         }
 
