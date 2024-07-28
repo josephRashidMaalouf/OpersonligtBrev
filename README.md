@@ -41,9 +41,9 @@ Länk till appen: https://calm-tree-0af52a703.5.azurestaticapps.net/
 
 |Formulär för att generera ett personligt brev|
 |------------------------|
-| <img src="./Pictures/ResumeForm" width="600"> |
+| <img src="./Pictures/ResumeForm.png" width="600"> |
 
 |Lista över Personliga brev|
 |------------------------|
-| <img src="./Pictures/MyLetters" width="600"> |
+| <img src="./Pictures/MyLetters.png" width="600"> |
 
