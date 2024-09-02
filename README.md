@@ -1,7 +1,7 @@
 # OPersonligtBrev
 ## Om projektet
 Att söka ett jobb ska inte handla om hur vältalig du är i skrift. Fokus bör vara på hur väl just din profil passar in på företaget du söker till. Detta är en webbapp som hjälper användaren att formulera övertygande personliga brev som tydligt kommunicerar varför användaren är en bra kanditat för tjänsten som efterlyses. <br>
-Länk till appen: https://calm-tree-0af52a703.5.azurestaticapps.net/
+
 
 ### Hur du använder appen
 <ol>
